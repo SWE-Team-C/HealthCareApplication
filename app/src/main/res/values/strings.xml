@@ -11,7 +11,8 @@
   <string name="hint_education">Education</string>
   <string name="hint_awards">Awards</string>
   <string name="activity_signin_name">Sign In</string>
-  <string name="activity_signup_name">Input User Info</string>
+  <string name="activity_signup_user_name">Input User Info</string>
+  <string name="activity_signup_trainer_name">Input Trainer Info</string>
   <string name="activity_typeselect_name">Select User Type</string>
   <string name="already_signup">Already Signed Up Account</string>
 </resources>

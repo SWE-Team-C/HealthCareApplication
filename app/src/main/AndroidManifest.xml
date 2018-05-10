@@ -24,7 +24,7 @@
       android:label="@string/activity_signin_name"
       android:name=".view.SignInActivity"/>
     <activity
-      android:label="@string/activity_signup_name"
+      android:label="@string/activity_signup_user_name"
       android:name=".view.SignUpActivity"/>
     <activity
       android:label="@string/activity_typeselect_name"

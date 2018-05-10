@@ -12,7 +12,8 @@
   <string name="hint_education">학력</string>
   <string name="hint_awards">수상경력</string>
   <string name="activity_signin_name">로그인</string>
-  <string name="activity_signup_name">회원 정보 입력</string>
+  <string name="activity_signup_user_name">회원 정보 입력</string>
+  <string name="activity_signup_trainer_name">트레이너 정보 입력</string>
   <string name="activity_typeselect_name">사용자 유형 선택</string>
   <string name="already_signup">이미 가입된 계정입니다</string>
 </resources>

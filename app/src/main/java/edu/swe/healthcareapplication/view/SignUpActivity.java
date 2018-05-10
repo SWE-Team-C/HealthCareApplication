@@ -27,7 +27,16 @@ public class SignUpActivity extends AppCompatActivity {
     if (bundle != null) {
       mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
     }
+    initTitle();
     initStepView();
+  }
+
+  private void initTitle() {
+    if (mUserType == UserType.USER) {
+      setTitle(R.string.activity_signup_user_name);
+    } else if (mUserType == UserType.TRAINER) {
+      setTitle(R.string.activity_signup_trainer_name);
+    }
   }
 
   private void initStepView() {
