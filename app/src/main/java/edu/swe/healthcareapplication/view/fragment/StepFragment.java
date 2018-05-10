@@ -24,7 +24,6 @@ public class StepFragment extends Fragment {
           step.setValueMap(previousStep.getValueMap());
         }
         step.initialize();
-        step.getStepView().setVisibility(View.VISIBLE);
       } else {
         step.getStepView().setVisibility(View.GONE);
       }

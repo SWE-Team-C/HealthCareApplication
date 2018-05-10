@@ -17,7 +17,8 @@ import edu.swe.healthcareapplication.model.Step;
 import edu.swe.healthcareapplication.model.Trainer;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Map;
 
 public class TrainerStepFragment extends StepFragment {
 
@@ -34,32 +35,35 @@ public class TrainerStepFragment extends StepFragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_step_trainer, container, false);
-    Step step01 = new Step(rootView.findViewById(R.id.layout_step_01)) {
+    Step step01 = new Step(rootView.findViewById(R.id.stub_step_01)) {
       @Override
-      public void initialize() {
-        EditText editName = stepView.findViewById(R.id.edit_name);
-        Button btnOk = stepView.findViewById(R.id.btn_ok);
+      protected void onInitialize(View inflatedView) {
+        EditText editName = inflatedView.findViewById(R.id.edit_name);
+        Button btnOk = inflatedView.findViewById(R.id.btn_ok);
 
         btnOk.setOnClickListener(v -> {
           String name = editName.getText().toString();
-          valueMap.put("name", name);
+          Map<String, Object> stepValueMap = getValueMap();
+          stepValueMap.put("name", name);
+          setValueMap(stepValueMap);
           moveStep(1);
         });
       }
     };
     addStep(step01);
-    Step step02 = new Step(rootView.findViewById(R.id.layout_step_02)) {
+    Step step02 = new Step(rootView.findViewById(R.id.stub_step_02)) {
       @Override
-      public void initialize() {
-        Button btnUploadProfile = stepView.findViewById(R.id.btn_upload_profile);
-        EditText editEducation = stepView.findViewById(R.id.edit_education);
-        EditText editAwards = stepView.findViewById(R.id.edit_awards);
-        Button btnOk = stepView.findViewById(R.id.btn_ok);
+      protected void onInitialize(View inflatedView) {
+        Button btnUploadProfile = inflatedView.findViewById(R.id.btn_upload_profile);
+        EditText editEducation = inflatedView.findViewById(R.id.edit_education);
+        EditText editAwards = inflatedView.findViewById(R.id.edit_awards);
+        Button btnOk = inflatedView.findViewById(R.id.btn_ok);
         btnOk.setOnClickListener(v -> {
           String education = editEducation.getText().toString();
           String awards = editAwards.getText().toString();
-          String name = (String) valueMap.get("name");
-          Trainer trainer = new Trainer(name, education, Arrays.asList(awards));
+          String name = (String) getValueMap().get("name");
+
+          Trainer trainer = new Trainer(name, education, Collections.singletonList(awards));
           writeDatabase(trainer);
         });
       }

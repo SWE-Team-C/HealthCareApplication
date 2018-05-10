@@ -17,6 +17,7 @@ import edu.swe.healthcareapplication.model.Step;
 import edu.swe.healthcareapplication.model.User;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import java.util.Map;
 
 public class UserStepFragment extends StepFragment {
 
@@ -33,34 +34,37 @@ public class UserStepFragment extends StepFragment {
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
     View rootView = inflater.inflate(R.layout.fragment_step_user, container, false);
-    Step step01 = new Step(rootView.findViewById(R.id.layout_step_01)) {
+    Step step01 = new Step(rootView.findViewById(R.id.stub_step_01)) {
       @Override
-      public void initialize() {
-        EditText editName = stepView.findViewById(R.id.edit_name);
-        EditText editAge = stepView.findViewById(R.id.edt_age);
-        Button btnOk = stepView.findViewById(R.id.btn_ok);
+      public void onInitialize(View inflatedView) {
+        EditText editName = inflatedView.findViewById(R.id.edit_name);
+        EditText editAge = inflatedView.findViewById(R.id.edt_age);
+        Button btnOk = inflatedView.findViewById(R.id.btn_ok);
 
         btnOk.setOnClickListener(v -> {
           String name = editName.getText().toString();
           int age = Integer.parseInt(editAge.getText().toString());
-          valueMap.put("name", name);
-          valueMap.put("age", age);
+          Map<String, Object> stepValueMap = getValueMap();
+          stepValueMap.put("name", name);
+          stepValueMap.put("age", age);
+          setValueMap(stepValueMap);
           moveStep(1);
         });
       }
     };
     addStep(step01);
-    Step step02 = new Step(rootView.findViewById(R.id.layout_step_02)) {
+    Step step02 = new Step(rootView.findViewById(R.id.stub_step_02)) {
       @Override
-      public void initialize() {
-        String name = (String) valueMap.get("name");
-        int age = (int) valueMap.get("age");
-        Button btnMan = stepView.findViewById(R.id.btn_type_man);
+      public void onInitialize(View inflatedView) {
+        Map<String, Object> stepValueMap = getValueMap();
+        String name = (String) stepValueMap.get("name");
+        int age = (int) stepValueMap.get("age");
+        Button btnMan = inflatedView.findViewById(R.id.btn_type_man);
         btnMan.setOnClickListener(v -> {
           User user = new User(name, age, "M");
           writeDatabase(user);
         });
-        Button btnWoman = stepView.findViewById(R.id.btn_type_woman);
+        Button btnWoman = inflatedView.findViewById(R.id.btn_type_woman);
         btnWoman.setOnClickListener(v -> {
           User user = new User(name, age, "W");
           writeDatabase(user);

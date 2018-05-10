@@ -1,34 +1,40 @@
 package edu.swe.healthcareapplication.model;
 
 import android.view.View;
+import android.view.ViewStub;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class Step {
 
-  protected View stepView;
-  protected Map<String, Object> valueMap;
+  private boolean isInitialized = false;
+  private ViewStub stepView;
+  private Map<String, Object> valueMap;
 
-  public Step(View stepView) {
+  protected Step(ViewStub stepView) {
     this.stepView = stepView;
     this.valueMap = new HashMap<>();
   }
 
-  public abstract void initialize();
+  protected abstract void onInitialize(View inflatedView);
 
-  public View getStepView() {
-    return stepView;
+  public void initialize() {
+    if (!isInitialized) {
+      View inflatedView = stepView.inflate();
+      onInitialize(inflatedView);
+      isInitialized = true;
+    }
   }
 
-  public void setValueMap(Map<String, Object> valueMap) {
-    if (valueMap != null) {
-      this.valueMap = valueMap;
-    } else {
-      this.valueMap = new HashMap<>();
-    }
+  public ViewStub getStepView() {
+    return stepView;
   }
 
   public Map<String, Object> getValueMap() {
     return valueMap;
+  }
+
+  public void setValueMap(Map<String, Object> valueMap) {
+    this.valueMap = valueMap;
   }
 }
