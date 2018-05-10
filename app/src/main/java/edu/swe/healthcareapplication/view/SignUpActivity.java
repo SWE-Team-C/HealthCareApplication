@@ -18,11 +18,6 @@ public class SignUpActivity extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_signup);
-  }
-
-  @Override
-  protected void onStart() {
-    super.onStart();
     Bundle bundle = getIntent().getExtras();
     if (bundle != null) {
       mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
