@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1014337420632",
+    "firebase_url": "https://sogong-c914c.firebaseio.com",
+    "project_id": "sogong-c914c",
+    "storage_bucket": "sogong-c914c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1014337420632:android:b166081673dca2bd",
+        "android_client_info": {
+          "package_name": "edu.swe.healthcareapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1014337420632-gok3aeqtg4ml3kqnn7lk4br40b2f2902.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.swe.healthcareapplication",
+            "certificate_hash": "150cdff57eb0d66da2135f9b7c50fe7a5304defb"
+          }
+        },
+        {
+          "client_id": "1014337420632-5l5g944odot72j9sjhbnvp7drasd41q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkGTPLOco-nU-wrSg5eT4I_32mqiP4mbY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1014337420632-5l5g944odot72j9sjhbnvp7drasd41q0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
