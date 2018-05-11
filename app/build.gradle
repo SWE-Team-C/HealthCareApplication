@@ -36,6 +36,7 @@ dependencies {
     implementation "com.android.support:support-media-compat:${supportLibVersion}"
     implementation "com.android.support:animated-vector-drawable:${supportLibVersion}"
     implementation "com.android.support:palette-v7:${supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
     implementation "com.android.support.constraint:constraint-layout:${constraintLayoutVersion}"
     implementation "com.google.android.gms:play-services-auth:${googleServiceVersion}"
     implementation "com.google.firebase:firebase-core:15.0.2"

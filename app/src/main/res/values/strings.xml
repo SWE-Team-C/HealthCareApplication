@@ -15,4 +15,6 @@
   <string name="activity_signup_trainer_name">Input Trainer Info</string>
   <string name="activity_typeselect_name">Select User Type</string>
   <string name="already_signup">Already Signed Up Account</string>
+  <string name="activity_select_trainer_name">Select trainer</string>
+  <string name="action_select">Select</string>
 </resources>

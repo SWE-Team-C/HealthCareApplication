@@ -16,4 +16,6 @@
   <string name="activity_signup_trainer_name">트레이너 정보 입력</string>
   <string name="activity_typeselect_name">사용자 유형 선택</string>
   <string name="already_signup">이미 가입된 계정입니다</string>
+  <string name="activity_select_trainer_name">트레이너 선택</string>
+  <string name="action_select">선택</string>
 </resources>

@@ -1,5 +1,6 @@
 package edu.swe.healthcareapplication.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import edu.swe.healthcareapplication.model.Step;
 import edu.swe.healthcareapplication.model.User;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import edu.swe.healthcareapplication.view.SelectTrainerActivity;
 import java.util.Map;
 
 public class UserStepFragment extends StepFragment {
@@ -68,6 +70,11 @@ public class UserStepFragment extends StepFragment {
         btnWoman.setOnClickListener(v -> {
           User user = new User(name, age, "W");
           writeDatabase(user);
+          if (getActivity() != null ) {
+            Intent intent = new Intent(getActivity(), SelectTrainerActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+          }
         });
       }
     };
