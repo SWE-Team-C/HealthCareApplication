@@ -2,6 +2,7 @@ package edu.swe.healthcareapplication.view.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,8 @@ import java.util.List;
 
 public class SelectTrainerAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-  private List<Trainer> mTrainerList = new ArrayList<>();
-  private OnItemSelectListener<Trainer> mListener;
+  private List<Pair<String, Trainer>> mTrainerList = new ArrayList<>();
+  private OnItemSelectListener<Pair<String, Trainer>> mListener;
 
   @NonNull
   @Override
@@ -29,8 +30,8 @@ public class SelectTrainerAdapter extends RecyclerView.Adapter<ViewHolder> {
 
   @Override
   public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    Trainer trainer = mTrainerList.get(position);
-    holder.bind(trainer, mListener);
+    Pair<String, Trainer> trainerPair = mTrainerList.get(position);
+    holder.bind(trainerPair, mListener);
   }
 
   @Override
@@ -38,13 +39,13 @@ public class SelectTrainerAdapter extends RecyclerView.Adapter<ViewHolder> {
     return mTrainerList.size();
   }
 
-  public void setTrainerList(List<Trainer> mTrainerList) {
+  public void setTrainerList(List<Pair<String, Trainer>> mTrainerList) {
     this.mTrainerList = mTrainerList;
     notifyDataSetChanged();
   }
 
   public void setOnItemSelectListener(
-      OnItemSelectListener<Trainer> onItemSelectListener) {
+      OnItemSelectListener<Pair<String, Trainer>> onItemSelectListener) {
     this.mListener = onItemSelectListener;
   }
 
@@ -63,13 +64,14 @@ public class SelectTrainerAdapter extends RecyclerView.Adapter<ViewHolder> {
       selectButton = itemView.findViewById(R.id.btn_select);
     }
 
-    public void bind(Trainer trainer, OnItemSelectListener<Trainer> listener) {
+    public void bind(Pair<String, Trainer> trainerPair, OnItemSelectListener<Pair<String, Trainer>> listener) {
+      Trainer trainer = trainerPair.second;
       nameView.setText(trainer.name);
       educationView.setText(trainer.education);
       awardsView.setText(trainer.awards.get(0));
       selectButton.setOnClickListener(v -> {
         if (listener != null) {
-          listener.onItemSelected(trainer);
+          listener.onItemSelected(trainerPair);
         }
       });
     }

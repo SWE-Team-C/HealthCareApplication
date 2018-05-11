@@ -30,6 +30,7 @@
       android:label="@string/activity_typeselect_name"
       android:name=".view.TypeSelectActivity"/>
     <activity
+      android:exported="true"
       android:label="@string/activity_select_trainer_name"
       android:name=".view.SelectTrainerActivity"/>
   </application>
