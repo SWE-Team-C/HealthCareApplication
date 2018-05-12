@@ -9,6 +9,7 @@ public class ChatChannel {
   public String trainerId;
 
   public ChatChannel() {
+    // Default constructor required for calls to DataSnapshot.getValue(ChatChannel.class)
   }
 
   public ChatChannel(String userId, String trainerId) {

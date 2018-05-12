@@ -64,7 +64,8 @@ public class SelectTrainerAdapter extends RecyclerView.Adapter<ViewHolder> {
       selectButton = itemView.findViewById(R.id.btn_select);
     }
 
-    public void bind(Pair<String, Trainer> trainerPair, OnItemSelectListener<Pair<String, Trainer>> listener) {
+    public void bind(Pair<String, Trainer> trainerPair,
+        OnItemSelectListener<Pair<String, Trainer>> listener) {
       Trainer trainer = trainerPair.second;
       nameView.setText(trainer.name);
       educationView.setText(trainer.education);

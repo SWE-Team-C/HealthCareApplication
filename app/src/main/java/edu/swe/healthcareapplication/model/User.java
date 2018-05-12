@@ -9,6 +9,7 @@ public class User {
   public String gender; // Representation rule (Man = "M", Woman = "W")
 
   public User() {
+    // Default constructor required for calls to DataSnapshot.getValue(User.class)
   }
 
   public User(String name, int age, String gender) {

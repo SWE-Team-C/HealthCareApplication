@@ -28,7 +28,6 @@ import edu.swe.healthcareapplication.util.BundleConstants;
 public class SignInActivity extends AppCompatActivity {
 
   public static final int RC_GOOGLE_SIGN_IN = 101;
-
   private static final String TAG = SignInActivity.class.getSimpleName();
 
   private FirebaseAuth mAuth;
@@ -47,9 +46,7 @@ public class SignInActivity extends AppCompatActivity {
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_signin);
-
     mAuth = FirebaseAuth.getInstance();
-
     findViewById(R.id.google_signin_button)
         .setOnClickListener((v) -> signInWithGoogle());
   }

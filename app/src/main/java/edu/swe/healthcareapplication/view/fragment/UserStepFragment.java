@@ -70,7 +70,7 @@ public class UserStepFragment extends StepFragment {
         btnWoman.setOnClickListener(v -> {
           User user = new User(name, age, "W");
           writeDatabase(user);
-          if (getActivity() != null ) {
+          if (getActivity() != null) {
             Intent intent = new Intent(getActivity(), SelectTrainerActivity.class);
             startActivity(intent);
             getActivity().finish();

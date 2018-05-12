@@ -28,7 +28,6 @@ public class SelectTrainerActivity extends AppCompatActivity implements
 
   private static final String TAG = SelectTrainerActivity.class.getSimpleName();
 
-  private RecyclerView mTrainerList;
   private SelectTrainerAdapter mAdapter;
   private FirebaseDatabase mDatabase;
 
@@ -44,7 +43,7 @@ public class SelectTrainerActivity extends AppCompatActivity implements
   private void initView() {
     mAdapter = new SelectTrainerAdapter();
     mAdapter.setOnItemSelectListener(this);
-    mTrainerList = findViewById(R.id.trainer_list);
+    RecyclerView mTrainerList = findViewById(R.id.trainer_list);
     mTrainerList.setHasFixedSize(true);
     mTrainerList.setLayoutManager(new LinearLayoutManager(this));
     mTrainerList.setAdapter(mAdapter);

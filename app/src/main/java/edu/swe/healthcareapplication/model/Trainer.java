@@ -12,6 +12,7 @@ public class Trainer {
   public List<String> awards;
 
   public Trainer() {
+    // Default constructor required for calls to DataSnapshot.getValue(Trainer.class)
   }
 
   public Trainer(String name, String education, List<String> awards) {
