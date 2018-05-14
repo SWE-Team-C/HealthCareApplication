@@ -1,20 +1,26 @@
 <resources>
   <string name="app_name">HealthCareApplication</string>
-  <string name="login_successful">Login Successful</string>
-  <string name="login_failed">Login failed</string>
-  <string name="type_user">User</string>
-  <string name="type_trainer">Trainer</string>
-  <string name="hint_input_name">Name</string>
-  <string name="hint_input_age">Age</string>
-  <string name="type_gender_woman">Woman</string>
-  <string name="type_gender_man">Man</string>
-  <string name="hint_education">Education</string>
-  <string name="hint_awards">Awards</string>
+  <!-- Activity Name -->
   <string name="activity_signin_name">Sign In</string>
   <string name="activity_signup_user_name">Input User Info</string>
   <string name="activity_signup_trainer_name">Input Trainer Info</string>
   <string name="activity_typeselect_name">Select User Type</string>
-  <string name="already_signup">Already Signed Up Account</string>
   <string name="activity_select_trainer_name">Select trainer</string>
+  <string name="activity_select_time_name">Select Time</string>
+  <!-- Action -->
   <string name="action_select">Select</string>
+  <!-- Type -->
+  <string name="type_user">User</string>
+  <string name="type_trainer">Trainer</string>
+  <string name="type_gender_woman">Woman</string>
+  <string name="type_gender_man">Man</string>
+  <!-- Hint -->
+  <string name="hint_input_name">Name</string>
+  <string name="hint_input_age">Age</string>
+  <string name="hint_education">Education</string>
+  <string name="hint_awards">Awards</string>
+  <!-- Message -->
+  <string name="msg_login_successful">Login Successful</string>
+  <string name="msg_login_failed">Login failed</string>
+  <string name="msg_already_signup">Already Signed Up Account</string>
 </resources>

@@ -1,21 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">HealthCareApplication</string>
-  <string name="login_successful">로그인 성공</string>
-  <string name="login_failed">로그인 실패</string>
-  <string name="type_user">사용자</string>
-  <string name="type_trainer">트레이너</string>
-  <string name="hint_input_name">이름</string>
-  <string name="hint_input_age">나이</string>
-  <string name="type_gender_man">남자</string>
-  <string name="type_gender_woman">여자</string>
-  <string name="hint_education">학력</string>
-  <string name="hint_awards">수상경력</string>
+  <!-- Activity Name -->
   <string name="activity_signin_name">로그인</string>
   <string name="activity_signup_user_name">회원 정보 입력</string>
   <string name="activity_signup_trainer_name">트레이너 정보 입력</string>
   <string name="activity_typeselect_name">사용자 유형 선택</string>
-  <string name="already_signup">이미 가입된 계정입니다</string>
   <string name="activity_select_trainer_name">트레이너 선택</string>
+  <string name="activity_select_time_name">시간 선택</string>
+  <!-- Action -->
   <string name="action_select">선택</string>
+  <!-- Type -->
+  <string name="type_user">사용자</string>
+  <string name="type_trainer">트레이너</string>
+  <string name="type_gender_man">남자</string>
+  <string name="type_gender_woman">여자</string>
+  <!-- Hint -->
+  <string name="hint_input_name">이름</string>
+  <string name="hint_input_age">나이</string>
+  <string name="hint_education">학력</string>
+  <string name="hint_awards">수상경력</string>
+  <!-- Message -->
+  <string name="msg_login_successful">로그인 성공</string>
+  <string name="msg_login_failed">로그인 실패</string>
+  <string name="msg_already_signup">이미 가입된 계정입니다</string>
 </resources>
