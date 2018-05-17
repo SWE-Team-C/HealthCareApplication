@@ -7,13 +7,13 @@
   android:layout_height="match_parent"
   tools:context=".view.TypeSelectActivity">
 
-  <Button
+  <android.support.design.button.MaterialButton
     android:id="@+id/btn_type_user"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="@string/type_user" />
 
-  <Button
+  <android.support.design.button.MaterialButton
     android:id="@+id/btn_type_trainer"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

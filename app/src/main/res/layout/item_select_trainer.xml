@@ -38,7 +38,7 @@
     app:layout_constraintTop_toBottomOf="@id/tv_education"
     tools:text="Awards"/>
 
-  <Button
+  <android.support.design.button.MaterialButton
     android:id="@+id/btn_select"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"

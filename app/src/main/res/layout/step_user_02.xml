@@ -4,16 +4,16 @@
   android:layout_width="match_parent"
   android:layout_height="match_parent">
 
-  <android.support.v7.widget.AppCompatButton
+  <android.support.design.button.MaterialButton
     android:id="@+id/btn_type_man"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/type_gender_man" />
+    android:text="@string/type_gender_man"/>
 
-  <android.support.v7.widget.AppCompatButton
+  <android.support.design.button.MaterialButton
     android:id="@+id/btn_type_woman"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="@string/type_gender_woman" />
+    android:text="@string/type_gender_woman"/>
 
 </LinearLayout>
