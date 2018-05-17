@@ -18,6 +18,7 @@ import edu.swe.healthcareapplication.model.Step;
 import edu.swe.healthcareapplication.model.User;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.SelectTrainerActivity;
 import java.util.Map;
 
@@ -65,16 +66,13 @@ public class UserStepFragment extends StepFragment {
         btnMan.setOnClickListener(v -> {
           User user = new User(name, age, "M");
           writeDatabase(user);
+          navigateSelectTrainer();
         });
         Button btnWoman = inflatedView.findViewById(R.id.btn_type_woman);
         btnWoman.setOnClickListener(v -> {
           User user = new User(name, age, "W");
           writeDatabase(user);
-          if (getActivity() != null) {
-            Intent intent = new Intent(getActivity(), SelectTrainerActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-          }
+          navigateSelectTrainer();
         });
       }
     };
@@ -89,8 +87,17 @@ public class UserStepFragment extends StepFragment {
     if (currentUser != null) {
       String uid = currentUser.getUid();
       DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-      reference.child("users").child(uid).setValue(user);
-      reference.child("user_types").child(uid).setValue("user");
+      reference.child(DatabaseConstants.CHILD_TRAINERS).child(uid).setValue(user);
+      reference.child(DatabaseConstants.CHILD_USER_TYPES).child(uid)
+          .setValue(DatabaseConstants.USER_TYPE_USER);
+    }
+  }
+
+  private void navigateSelectTrainer() {
+    if (getActivity() != null) {
+      Intent intent = new Intent(getActivity(), SelectTrainerActivity.class);
+      startActivity(intent);
+      getActivity().finish();
     }
   }
 }

@@ -17,6 +17,7 @@ import edu.swe.healthcareapplication.model.Step;
 import edu.swe.healthcareapplication.model.Trainer;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import edu.swe.healthcareapplication.util.DatabaseConstants;
 import java.util.Collections;
 import java.util.Map;
 
@@ -81,8 +82,9 @@ public class TrainerStepFragment extends StepFragment {
       FirebaseDatabase database = FirebaseDatabase.getInstance();
 
       DatabaseReference reference = database.getReference();
-      reference.child("trainers").child(uid).setValue(trainer);
-      reference.child("user_types").child(uid).setValue("trainer");
+      reference.child(DatabaseConstants.CHILD_TRAINERS).child(uid).setValue(trainer);
+      reference.child(DatabaseConstants.CHILD_USER_TYPES).child(uid)
+          .setValue(DatabaseConstants.USER_TYPE_TRAINER);
     }
   }
 }

@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import edu.swe.healthcareapplication.util.DatabaseConstants;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -103,12 +104,12 @@ public class SignInActivity extends AppCompatActivity {
   private void handleSignIn(FirebaseUser user) {
     if (user != null) {
       Toast.makeText(this,
-          getString(R.string.login_successful) + " (" + user.getEmail() + ")", Toast.LENGTH_LONG)
+          getString(R.string.msg_login_successful) + " (" + user.getEmail() + ")", Toast.LENGTH_LONG)
           .show();
 
       String uid = user.getUid();
       FirebaseDatabase database = FirebaseDatabase.getInstance();
-      DatabaseReference usersReference = database.getReference().child("user_types").child(uid);
+      DatabaseReference usersReference = database.getReference().child(DatabaseConstants.CHILD_USER_TYPES).child(uid);
       usersReference.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -116,13 +117,13 @@ public class SignInActivity extends AppCompatActivity {
           Intent intent;
           Bundle bundle = new Bundle();
           if (userType != null) {
-            if (userType.equals("user")) {
+            if (userType.equals(DatabaseConstants.USER_TYPE_USER)) {
               bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, UserType.USER);
-            } else if (userType.equals("trainer")) {
+            } else if (userType.equals(DatabaseConstants.USER_TYPE_TRAINER)) {
               bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, UserType.TRAINER);
             }
-            intent = new Intent(SignInActivity.this, TimeTableActivity.class);
-            Toast.makeText(SignInActivity.this, R.string.already_signup, Toast.LENGTH_SHORT).show();
+            intent = new Intent(SignInActivity.this, MainActivity.class);
+            Toast.makeText(SignInActivity.this, R.string.msg_already_signup, Toast.LENGTH_SHORT).show();
           } else {
             bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, mUserType);
             intent = new Intent(SignInActivity.this, SignUpActivity.class);
@@ -139,7 +140,7 @@ public class SignInActivity extends AppCompatActivity {
       });
     } else {
       Toast.makeText(this,
-          getString(R.string.login_failed), Toast.LENGTH_LONG)
+          getString(R.string.msg_login_failed), Toast.LENGTH_LONG)
           .show();
     }
   }
