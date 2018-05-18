@@ -37,9 +37,9 @@ public class SignUpActivity extends AppCompatActivity {
   private void initStepView() {
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     if (mUserType == UserType.USER) {
-      transaction.add(R.id.step_container, UserStepFragment.newInstance(mUserType));
+      transaction.add(R.id.step_container, new UserStepFragment());
     } else if (mUserType == UserType.TRAINER) {
-      transaction.add(R.id.step_container, TrainerStepFragment.newInstance(mUserType));
+      transaction.add(R.id.step_container, new TrainerStepFragment());
     }
     transaction.commit();
   }

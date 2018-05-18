@@ -1,14 +1,15 @@
 <resources>
   <string name="app_name">HealthCareApplication</string>
   <!-- Activity Name -->
-  <string name="activity_signin_name">Sign In</string>
+  <string name="activity_sign_in_name">Sign In</string>
   <string name="activity_signup_user_name">Input User Info</string>
   <string name="activity_signup_trainer_name">Input Trainer Info</string>
-  <string name="activity_typeselect_name">Select User Type</string>
+  <string name="activity_type_select_name">Select User Type</string>
   <string name="activity_select_trainer_name">Select trainer</string>
   <string name="activity_select_time_name">Select Time</string>
   <!-- Action -->
   <string name="action_select">Select</string>
+  <string name="action_select_complete">선택 완료</string>
   <!-- Type -->
   <string name="type_user">User</string>
   <string name="type_trainer">Trainer</string>
@@ -23,4 +24,6 @@
   <string name="msg_login_successful">Login Successful</string>
   <string name="msg_login_failed">Login failed</string>
   <string name="msg_already_signup">Already Signed Up Account</string>
+  <string name="msg_timetable_saved">Saved time table</string>
+  <string name="msg_timetable_not_selected">Select least one</string>
 </resources>

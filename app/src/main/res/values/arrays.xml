@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string-array name="date">
+    <item>MON</item>
+    <item>TUE</item>
+    <item>WED</item>
+    <item>THU</item>
+    <item>FRI</item>
+    <item>SAT</item>
+    <item>SUN</item>
+  </string-array>
+</resources>

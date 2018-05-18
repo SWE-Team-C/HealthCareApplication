@@ -43,10 +43,10 @@ public class SelectTrainerActivity extends AppCompatActivity implements
   private void initView() {
     mAdapter = new SelectTrainerAdapter();
     mAdapter.setOnItemSelectListener(this);
-    RecyclerView mTrainerList = findViewById(R.id.trainer_list);
-    mTrainerList.setHasFixedSize(true);
-    mTrainerList.setLayoutManager(new LinearLayoutManager(this));
-    mTrainerList.setAdapter(mAdapter);
+    RecyclerView trainerList = findViewById(R.id.trainer_list);
+    trainerList.setHasFixedSize(true);
+    trainerList.setLayoutManager(new LinearLayoutManager(this));
+    trainerList.setAdapter(mAdapter);
   }
 
   private void readTrainers() {
