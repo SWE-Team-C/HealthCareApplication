@@ -48,11 +48,17 @@ public class SplashActivity extends AppCompatActivity {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {
         String value = (String) dataSnapshot.getValue();
-        UserType userType = UserType.USER;
-        if (value != null && value.equals(DatabaseConstants.USER_TYPE_TRAINER)) {
-          userType = UserType.TRAINER;
+        UserType userType;
+        if (value != null) {
+          if (value.equals(DatabaseConstants.USER_TYPE_TRAINER)) {
+            userType = UserType.TRAINER;
+          } else {
+            userType = UserType.USER;
+          }
+          navigateMain(userType);
+        } else {
+          navigateTypeSelect();
         }
-        navigateMain(userType);
       }
 
       @Override
