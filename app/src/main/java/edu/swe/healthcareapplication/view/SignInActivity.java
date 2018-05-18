@@ -1,6 +1,7 @@
 package edu.swe.healthcareapplication.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
+import edu.swe.healthcareapplication.databinding.ActivitySigninBinding;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
@@ -33,6 +35,7 @@ public class SignInActivity extends AppCompatActivity {
 
   private FirebaseAuth mAuth;
   private UserType mUserType;
+  private ActivitySigninBinding mBinding;
 
   @Override
   protected void onStart() {
@@ -46,10 +49,9 @@ public class SignInActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_signin);
+    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_signin);
     mAuth = FirebaseAuth.getInstance();
-    findViewById(R.id.google_signin_button)
-        .setOnClickListener((v) -> signInWithGoogle());
+    mBinding.googleSigninButton.setOnClickListener((v) -> signInWithGoogle());
   }
 
   @Override
@@ -104,12 +106,14 @@ public class SignInActivity extends AppCompatActivity {
   private void handleSignIn(FirebaseUser user) {
     if (user != null) {
       Toast.makeText(this,
-          getString(R.string.msg_login_successful) + " (" + user.getEmail() + ")", Toast.LENGTH_LONG)
+          getString(R.string.msg_login_successful) + " (" + user.getEmail() + ")",
+          Toast.LENGTH_LONG)
           .show();
 
       String uid = user.getUid();
       FirebaseDatabase database = FirebaseDatabase.getInstance();
-      DatabaseReference usersReference = database.getReference().child(DatabaseConstants.CHILD_USER_TYPES).child(uid);
+      DatabaseReference usersReference = database.getReference()
+          .child(DatabaseConstants.CHILD_USER_TYPES).child(uid);
       usersReference.addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
@@ -123,7 +127,8 @@ public class SignInActivity extends AppCompatActivity {
               bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, UserType.TRAINER);
             }
             intent = new Intent(SignInActivity.this, MainActivity.class);
-            Toast.makeText(SignInActivity.this, R.string.msg_already_signup, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignInActivity.this, R.string.msg_already_signup, Toast.LENGTH_SHORT)
+                .show();
           } else {
             bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, mUserType);
             intent = new Intent(SignInActivity.this, SignUpActivity.class);

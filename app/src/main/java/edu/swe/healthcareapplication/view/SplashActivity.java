@@ -43,7 +43,8 @@ public class SplashActivity extends AppCompatActivity {
 
   private void checkSignUpUser(@NonNull FirebaseUser user) {
     String uid = user.getUid();
-    DatabaseReference userReference = mFirebaseDatabaseReference.child("user_types").child(uid);
+    DatabaseReference userReference = mFirebaseDatabaseReference
+        .child(DatabaseConstants.CHILD_USER_TYPES).child(uid);
     userReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {

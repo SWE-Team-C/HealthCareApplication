@@ -1,11 +1,11 @@
 package edu.swe.healthcareapplication.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
+import edu.swe.healthcareapplication.databinding.ActivitySelectTrainerBinding;
 import edu.swe.healthcareapplication.model.Trainer;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
@@ -31,10 +32,12 @@ public class SelectTrainerActivity extends AppCompatActivity implements
   private SelectTrainerAdapter mAdapter;
   private DatabaseReference mFirebaseDatabaseReference;
 
+  private ActivitySelectTrainerBinding mBinding;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_select_trainer);
+    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_select_trainer);
     mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
     initView();
     readTrainers();
@@ -43,14 +46,14 @@ public class SelectTrainerActivity extends AppCompatActivity implements
   private void initView() {
     mAdapter = new SelectTrainerAdapter();
     mAdapter.setOnItemSelectListener(this);
-    RecyclerView trainerList = findViewById(R.id.trainer_list);
-    trainerList.setHasFixedSize(true);
-    trainerList.setLayoutManager(new LinearLayoutManager(this));
-    trainerList.setAdapter(mAdapter);
+    mBinding.trainerList.setHasFixedSize(true);
+    mBinding.trainerList.setLayoutManager(new LinearLayoutManager(this));
+    mBinding.trainerList.setAdapter(mAdapter);
   }
 
   private void readTrainers() {
-    DatabaseReference reference = mFirebaseDatabaseReference.child(DatabaseConstants.CHILD_TRAINERS);
+    DatabaseReference reference = mFirebaseDatabaseReference
+        .child(DatabaseConstants.CHILD_TRAINERS);
     reference.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(DataSnapshot dataSnapshot) {

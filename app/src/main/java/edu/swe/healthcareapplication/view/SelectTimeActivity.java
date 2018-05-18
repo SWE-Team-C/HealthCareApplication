@@ -1,19 +1,16 @@
 package edu.swe.healthcareapplication.view;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
+import edu.swe.healthcareapplication.databinding.ActivitySelectTimeBinding;
 import edu.swe.healthcareapplication.model.ChatChannel;
 import edu.swe.healthcareapplication.model.TimeTable;
 import edu.swe.healthcareapplication.model.UserType;
@@ -41,14 +39,17 @@ public class SelectTimeActivity extends AppCompatActivity {
 
   private DatabaseReference mFirebaseDatabaseReference;
   private FirebaseAuth mFirebaseAuth;
-  private CoordinatorLayout mRootLayout;
   private SelectTimeAdapter mAdapter;
   private String mTrainerId;
+
+  private ActivitySelectTimeBinding mBinding;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_select_time);
+    mBinding = DataBindingUtil
+        .setContentView(this, R.layout.activity_select_time);
+
     mFirebaseAuth = FirebaseAuth.getInstance();
     mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
     initView();
@@ -88,18 +89,16 @@ public class SelectTimeActivity extends AppCompatActivity {
   }
 
   private void initView() {
-    setSupportActionBar(findViewById(R.id.toolbar));
-    mRootLayout = findViewById(R.id.coordinator_layout);
+    setSupportActionBar(mBinding.toolbar);
     String[] dateStrings = getResources().getStringArray(R.array.date);
-    TabLayout tabLayout = findViewById(R.id.tab_layout);
     for (int index = 0; index < 7; index++) {
-      Tab tab = tabLayout.newTab().setText(dateStrings[index]);
+      Tab tab = mBinding.tabLayout.newTab().setText(dateStrings[index]);
       if (index == 0) {
         tab.select();
       }
-      tabLayout.addTab(tab);
+      mBinding.tabLayout.addTab(tab);
     }
-    tabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
+    mBinding.tabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
       @Override
       public void onTabSelected(Tab tab) {
         readTrainerTimeTable(mTrainerId, tab.getPosition());
@@ -117,14 +116,12 @@ public class SelectTimeActivity extends AppCompatActivity {
     });
 
     mAdapter = new SelectTimeAdapter();
-    RecyclerView trainerList = findViewById(R.id.timetable_list);
-    trainerList.setLayoutManager(new LinearLayoutManager(this));
-    trainerList.setHasFixedSize(true);
-    trainerList.setAdapter(mAdapter);
+    mBinding.timetableList.setLayoutManager(new LinearLayoutManager(this));
+    mBinding.timetableList.setHasFixedSize(true);
+    mBinding.timetableList.setAdapter(mAdapter);
 
-    FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(v -> {
-      int position = tabLayout.getSelectedTabPosition();
+    mBinding.fab.setOnClickListener(v -> {
+      int position = mBinding.tabLayout.getSelectedTabPosition();
       writeSelectedTimeTable(mTrainerId, mAdapter.getSelectedKeyList(), position);
     });
   }
@@ -158,7 +155,8 @@ public class SelectTimeActivity extends AppCompatActivity {
       @NonNull List<String> selectedKey,
       int dateIndex) {
     if (selectedKey.size() == 0) {
-      Snackbar.make(mRootLayout, R.string.msg_timetable_not_selected, Snackbar.LENGTH_SHORT).show();
+      Snackbar.make(mBinding.coordinatorLayout, R.string.msg_timetable_not_selected,
+          Snackbar.LENGTH_SHORT).show();
       return;
     }
 
@@ -178,7 +176,9 @@ public class SelectTimeActivity extends AppCompatActivity {
           }
           reference.child(key).setValue(timeTable);
 
-          Snackbar.make(mRootLayout, R.string.msg_timetable_saved, Snackbar.LENGTH_SHORT).show();
+          Snackbar
+              .make(mBinding.coordinatorLayout, R.string.msg_timetable_saved, Snackbar.LENGTH_SHORT)
+              .show();
         }
 
         @Override

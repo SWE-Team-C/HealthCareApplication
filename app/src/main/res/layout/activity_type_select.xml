@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  xmlns:tools="http://schemas.android.com/tools"
-  android:orientation="horizontal"
-  android:layout_width="match_parent"
-  android:layout_height="match_parent"
-  tools:context=".view.TypeSelectActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools">
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".view.TypeSelectActivity">
 
-  <android.support.design.button.MaterialButton
-    android:id="@+id/btn_type_user"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/type_user" />
+    <android.support.design.button.MaterialButton
+      android:id="@+id/btn_type_user"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/type_user"/>
 
-  <android.support.design.button.MaterialButton
-    android:id="@+id/btn_type_trainer"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/type_trainer" />
+    <android.support.design.button.MaterialButton
+      android:id="@+id/btn_type_trainer"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/type_trainer"/>
 
-</LinearLayout>
+  </LinearLayout>
+</layout>
