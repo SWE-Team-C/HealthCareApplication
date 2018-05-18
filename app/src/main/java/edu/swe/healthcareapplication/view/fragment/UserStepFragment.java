@@ -16,21 +16,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.Step;
 import edu.swe.healthcareapplication.model.User;
-import edu.swe.healthcareapplication.model.UserType;
-import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.SelectTrainerActivity;
 import java.util.Map;
 
 public class UserStepFragment extends StepFragment {
-
-  public static UserStepFragment newInstance(UserType userType) {
-    UserStepFragment fragment = new UserStepFragment();
-    Bundle bundle = new Bundle();
-    bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, userType);
-    fragment.setArguments(bundle);
-    return fragment;
-  }
 
   @Nullable
   @Override
@@ -43,6 +33,11 @@ public class UserStepFragment extends StepFragment {
         EditText editName = inflatedView.findViewById(R.id.edit_name);
         EditText editAge = inflatedView.findViewById(R.id.edt_age);
         Button btnOk = inflatedView.findViewById(R.id.btn_ok);
+
+        String userDisplayName = getUserDisplayName();
+        if (userDisplayName != null) {
+          editName.setText(userDisplayName);
+        }
 
         btnOk.setOnClickListener(v -> {
           String name = editName.getText().toString();
@@ -81,13 +76,23 @@ public class UserStepFragment extends StepFragment {
     return rootView;
   }
 
+  @Nullable
+  private String getUserDisplayName() {
+    FirebaseAuth auth = FirebaseAuth.getInstance();
+    FirebaseUser currentUser = auth.getCurrentUser();
+    if (currentUser != null) {
+      return currentUser.getDisplayName();
+    }
+    return null;
+  }
+
   private void writeDatabase(User user) {
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = auth.getCurrentUser();
     if (currentUser != null) {
       String uid = currentUser.getUid();
       DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-      reference.child(DatabaseConstants.CHILD_TRAINERS).child(uid).setValue(user);
+      reference.child(DatabaseConstants.CHILD_USERS).child(uid).setValue(user);
       reference.child(DatabaseConstants.CHILD_USER_TYPES).child(uid)
           .setValue(DatabaseConstants.USER_TYPE_USER);
     }
