@@ -11,6 +11,9 @@
   <!-- Action -->
   <string name="action_select">선택</string>
   <string name="action_select_complete">선택 완료</string>
+  <string name="action_profile">프로필</string>
+  <string name="action_timetable">시간표</string>
+  <string name="action_chat">대화</string>
   <!-- Type -->
   <string name="type_user">사용자</string>
   <string name="type_trainer">트레이너</string>

@@ -9,7 +9,10 @@
   <string name="activity_select_time_name">Select Time</string>
   <!-- Action -->
   <string name="action_select">Select</string>
-  <string name="action_select_complete">선택 완료</string>
+  <string name="action_select_complete">Select Complete</string>
+  <string name="action_profile">Profile</string>
+  <string name="action_timetable">TimeTable</string>
+  <string name="action_chat">Chat</string>
   <!-- Type -->
   <string name="type_user">User</string>
   <string name="type_trainer">Trainer</string>
