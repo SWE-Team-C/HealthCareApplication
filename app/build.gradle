@@ -20,6 +20,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    dexOptions {
+        maxProcessCount 8
+        javaMaxHeapSize "4g"
+    }
     dataBinding {
         enabled = true
     }
