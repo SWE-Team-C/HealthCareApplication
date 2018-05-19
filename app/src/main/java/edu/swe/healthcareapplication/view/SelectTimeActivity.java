@@ -177,7 +177,7 @@ public class SelectTimeActivity extends AppCompatActivity {
           reference.child(key).setValue(timeTable);
 
           Snackbar
-              .make(mBinding.coordinatorLayout, R.string.msg_timetable_saved, Snackbar.LENGTH_SHORT)
+              .make(mBinding.coordinatorLayout, R.string.msg_timetable_added, Snackbar.LENGTH_SHORT)
               .show();
         }
 

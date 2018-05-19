@@ -44,7 +44,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="16dp"
       android:layout_gravity="bottom|end"
-      android:src="@drawable/ic_save_white_24dp"
+      android:src="@drawable/ic_add_white_24dp"
       app:fabSize="normal"/>
 
   </android.support.design.widget.CoordinatorLayout>

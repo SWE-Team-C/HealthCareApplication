@@ -24,6 +24,6 @@
   <string name="msg_login_successful">Login Successful</string>
   <string name="msg_login_failed">Login failed</string>
   <string name="msg_already_signup">Already Signed Up Account</string>
-  <string name="msg_timetable_saved">Saved time table</string>
+  <string name="msg_timetable_added">Added time table</string>
   <string name="msg_timetable_not_selected">Select least one</string>
 </resources>
