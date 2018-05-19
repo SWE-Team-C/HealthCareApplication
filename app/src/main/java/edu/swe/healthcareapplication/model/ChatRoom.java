@@ -3,16 +3,16 @@ package edu.swe.healthcareapplication.model;
 import com.google.firebase.database.IgnoreExtraProperties;
 
 @IgnoreExtraProperties
-public class ChatChannel {
+public class ChatRoom {
 
   public String userId;
   public String trainerId;
 
-  public ChatChannel() {
-    // Default constructor required for calls to DataSnapshot.getValue(ChatChannel.class)
+  public ChatRoom() {
+    // Default constructor required for calls to DataSnapshot.getValue(ChatRoom.class)
   }
 
-  public ChatChannel(String userId, String trainerId) {
+  public ChatRoom(String userId, String trainerId) {
     this.userId = userId;
     this.trainerId = trainerId;
   }

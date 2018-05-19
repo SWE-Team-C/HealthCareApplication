@@ -24,7 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.databinding.ActivitySelectTimeBinding;
-import edu.swe.healthcareapplication.model.ChatChannel;
+import edu.swe.healthcareapplication.model.ChatRoom;
 import edu.swe.healthcareapplication.model.TimeTable;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
@@ -72,7 +72,7 @@ public class SelectTimeActivity extends AppCompatActivity {
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
     MenuInflater menuInflater = getMenuInflater();
-    menuInflater.inflate(R.menu.select_time_menu, menu);
+    menuInflater.inflate(R.menu.menu_select_time, menu);
     return true;
   }
 
@@ -80,7 +80,7 @@ public class SelectTimeActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_complete:
-        writeChatChannel(mTrainerId);
+        writeRelation(mTrainerId);
         navigateMain();
         return true;
       default:
@@ -189,14 +189,14 @@ public class SelectTimeActivity extends AppCompatActivity {
     }
   }
 
-  private void writeChatChannel(@NonNull String trainerId) {
+  private void writeRelation(@NonNull String trainerId) {
     FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
     if (currentUser != null) {
       String userUid = currentUser.getUid();
-      ChatChannel channel = new ChatChannel(userUid, trainerId);
+      ChatRoom chatRoom = new ChatRoom(userUid, trainerId);
       DatabaseReference reference = mFirebaseDatabaseReference
-          .child(DatabaseConstants.CHILD_CHAT_CHANNEL);
-      reference.push().setValue(channel);
+          .child(DatabaseConstants.CHILD_CHAT_ROOM);
+      reference.push().setValue(chatRoom);
     }
   }
 

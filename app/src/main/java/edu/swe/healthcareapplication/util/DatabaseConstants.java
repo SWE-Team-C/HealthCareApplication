@@ -8,7 +8,7 @@ public class DatabaseConstants {
 
   public static final String CHILD_USER_TYPES = "user_types";
 
-  public static final String CHILD_CHAT_CHANNEL = "chat_channel";
+  public static final String CHILD_CHAT_ROOM = "chat_room";
 
   public static final String CHILD_TIMETABLE = "timetable";
 
