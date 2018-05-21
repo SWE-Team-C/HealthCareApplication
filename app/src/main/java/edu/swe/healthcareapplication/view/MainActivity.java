@@ -6,6 +6,8 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.databinding.ActivityMainBinding;
+import edu.swe.healthcareapplication.model.UserType;
+import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.view.adapter.MainPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
@@ -16,11 +18,16 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-    initView();
+    Bundle bundle = getIntent().getExtras();
+    UserType userType = null;
+    if (bundle != null) {
+      userType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
+    }
+    initView(userType);
   }
 
-  private void initView() {
-    MainPagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
+  private void initView(UserType userType) {
+    MainPagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), userType);
     mBinding.viewPager.setAdapter(mPagerAdapter);
     mBinding.viewPager.setCurrentItem(1);
     mBinding.viewPager.addOnPageChangeListener(new OnPageChangeListener() {

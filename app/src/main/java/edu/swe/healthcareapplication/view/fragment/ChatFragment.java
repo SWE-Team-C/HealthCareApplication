@@ -10,8 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.databinding.FragmentChatBinding;
+import edu.swe.healthcareapplication.model.UserType;
+import edu.swe.healthcareapplication.util.BundleConstants;
 
 public class ChatFragment extends Fragment {
+
+  public static ChatFragment newInstance(UserType userType) {
+    ChatFragment instance = new ChatFragment();
+    Bundle bundle = new Bundle();
+    bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, userType);
+    instance.setArguments(bundle);
+    return instance;
+  }
 
   @Nullable
   @Override

@@ -20,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
@@ -28,6 +27,8 @@ import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.databinding.FragmentTimetableBinding;
 import edu.swe.healthcareapplication.model.ChatRoom;
 import edu.swe.healthcareapplication.model.TimeTable;
+import edu.swe.healthcareapplication.model.UserType;
+import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import java.util.Calendar;
 import java.util.Date;
@@ -38,6 +39,17 @@ public class TimeTableFragment extends Fragment {
 
   private RecyclerView mRecyclerView;
   private int mDateIndex = 0;
+
+  private UserType mUserType;
+  private String mTrainerId;
+
+  public static TimeTableFragment newInstance(UserType userType) {
+    TimeTableFragment instance = new TimeTableFragment();
+    Bundle bundle = new Bundle();
+    bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, userType);
+    instance.setArguments(bundle);
+    return instance;
+  }
 
   @Nullable
   @Override
@@ -79,6 +91,10 @@ public class TimeTableFragment extends Fragment {
   @Override
   public void onStart() {
     super.onStart();
+    Bundle bundle = getArguments();
+    if (bundle != null) {
+      mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
+    }
     requestTimeTable();
   }
 
@@ -100,33 +116,16 @@ public class TimeTableFragment extends Fragment {
 
   private void requestTimeTable() {
     if (isSignedIn()) {
-      FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-      readUserType(user);
+      if (mUserType == UserType.TRAINER) {
+        readTrainerTimeTable();
+      } else {
+        if (mTrainerId == null) {
+          readTrainerId();
+        } else {
+          readUserTimeTable(mTrainerId);
+        }
+      }
     }
-  }
-
-  private void readUserType(FirebaseUser user) {
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-    reference.child(DatabaseConstants.CHILD_USER_TYPES).child(user.getUid())
-        .addListenerForSingleValueEvent(
-            new ValueEventListener() {
-              @Override
-              public void onDataChange(DataSnapshot dataSnapshot) {
-                String userType = (String) dataSnapshot.getValue();
-                if (userType != null) {
-                  if (userType.equals(DatabaseConstants.USER_TYPE_TRAINER)) {
-                    readTrainerTimeTable();
-                  } else {
-                    readTrainerId();
-                  }
-                }
-              }
-
-              @Override
-              public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "onCancelled: " + databaseError.toString());
-              }
-            });
   }
 
   private void readTrainerTimeTable() {
@@ -158,7 +157,6 @@ public class TimeTableFragment extends Fragment {
         holder.timeView.setText(String.valueOf(model.startTime));
       }
     };
-
     mRecyclerView.setAdapter(adapter);
   }
 
@@ -178,7 +176,8 @@ public class TimeTableFragment extends Fragment {
           for (DataSnapshot child : children) {
             ChatRoom chatRoom = child.getValue(ChatRoom.class);
             if (chatRoom != null) {
-              readUserTimeTable(chatRoom.trainerId);
+              mTrainerId = chatRoom.trainerId;
+              readUserTimeTable(mTrainerId);
             }
           }
         }

@@ -13,6 +13,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import edu.swe.healthcareapplication.model.UserType;
+import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 
 public class SplashActivity extends AppCompatActivity {
@@ -48,7 +50,13 @@ public class SplashActivity extends AppCompatActivity {
       public void onDataChange(DataSnapshot dataSnapshot) {
         String value = (String) dataSnapshot.getValue();
         if (value != null) {
-          navigateMain();
+          UserType userType;
+          if (value.equals(DatabaseConstants.USER_TYPE_TRAINER)) {
+            userType = UserType.TRAINER;
+          } else {
+            userType = UserType.USER;
+          }
+          navigateMain(userType);
         } else {
           navigateTypeSelect();
         }
@@ -61,8 +69,9 @@ public class SplashActivity extends AppCompatActivity {
     });
   }
 
-  private void navigateMain() {
+  private void navigateMain(UserType userType) {
     Intent intent = new Intent(this, MainActivity.class);
+    intent.putExtra(BundleConstants.BUNDLE_USER_TYPE, userType);
     startActivity(intent);
     finish();
   }
