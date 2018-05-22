@@ -51,6 +51,8 @@ public class SelectTimeActivity extends AppCompatActivity {
   private FloatingActionButton mFab;
   private CoordinatorLayout mCoordinatorLayout;
 
+  private int mUpdatedItemCount = 0;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -176,6 +178,8 @@ public class SelectTimeActivity extends AppCompatActivity {
         .child(trainerId)
         .child(String.valueOf(dateIndex));
 
+    mUpdatedItemCount = 0;
+
     for (String key : selectedKey) {
       reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
@@ -186,10 +190,12 @@ public class SelectTimeActivity extends AppCompatActivity {
             timeTable.selectedUserId = currentUser.getUid();
           }
           reference.child(key).setValue(timeTable);
-
-          Snackbar
-              .make(mCoordinatorLayout, R.string.msg_timetable_added, Snackbar.LENGTH_SHORT)
-              .show();
+          mUpdatedItemCount++;
+          if (mUpdatedItemCount == selectedKey.size()) {
+            Snackbar
+                .make(mCoordinatorLayout, R.string.msg_timetable_added, Snackbar.LENGTH_SHORT)
+                .show();
+          }
         }
 
         @Override
