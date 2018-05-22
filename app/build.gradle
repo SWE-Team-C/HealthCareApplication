@@ -24,9 +24,6 @@ android {
         maxProcessCount 8
         javaMaxHeapSize "4g"
     }
-    dataBinding {
-        enabled = true
-    }
 }
 
 ext {

@@ -1,23 +1,24 @@
 package edu.swe.healthcareapplication.view;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
 import edu.swe.healthcareapplication.R;
-import edu.swe.healthcareapplication.databinding.ActivityMainBinding;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.view.adapter.MainPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
-  private ActivityMainBinding mBinding;
+  private ViewPager mViewPager;
+  private BottomNavigationView mBottomNavigationView;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+    setContentView(R.layout.activity_main);
     Bundle bundle = getIntent().getExtras();
     UserType userType = null;
     if (bundle != null) {
@@ -27,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
   }
 
   private void initView(UserType userType) {
+    mViewPager = findViewById(R.id.view_pager);
+    mBottomNavigationView = findViewById(R.id.bottom_navigation);
+
     MainPagerAdapter mPagerAdapter = new MainPagerAdapter(getSupportFragmentManager(), userType);
-    mBinding.viewPager.setAdapter(mPagerAdapter);
-    mBinding.viewPager.setCurrentItem(1);
-    mBinding.viewPager.addOnPageChangeListener(new OnPageChangeListener() {
+    mViewPager.setAdapter(mPagerAdapter);
+    mViewPager.setCurrentItem(1);
+    mViewPager.addOnPageChangeListener(new OnPageChangeListener() {
       @Override
       public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         // No-op
@@ -39,11 +43,11 @@ public class MainActivity extends AppCompatActivity {
       @Override
       public void onPageSelected(int position) {
         if (position == 0) {
-          mBinding.bottomNavigation.setSelectedItemId(R.id.action_profile);
+          mBottomNavigationView.setSelectedItemId(R.id.action_profile);
         } else if (position == 1) {
-          mBinding.bottomNavigation.setSelectedItemId(R.id.action_timetable);
+          mBottomNavigationView.setSelectedItemId(R.id.action_timetable);
         } else if (position == 2) {
-          mBinding.bottomNavigation.setSelectedItemId(R.id.action_chat);
+          mBottomNavigationView.setSelectedItemId(R.id.action_chat);
         }
       }
 
@@ -52,17 +56,17 @@ public class MainActivity extends AppCompatActivity {
         // No-op
       }
     });
-    mBinding.bottomNavigation.setSelectedItemId(R.id.action_timetable);
-    mBinding.bottomNavigation.setOnNavigationItemSelectedListener(
+    mBottomNavigationView.setSelectedItemId(R.id.action_timetable);
+    mBottomNavigationView.setOnNavigationItemSelectedListener(
         item -> {
           if (item.getItemId() == R.id.action_profile) {
-            mBinding.viewPager.setCurrentItem(0, false);
+            mViewPager.setCurrentItem(0, false);
             return true;
           } else if (item.getItemId() == R.id.action_timetable) {
-            mBinding.viewPager.setCurrentItem(1, false);
+            mViewPager.setCurrentItem(1, false);
             return true;
           } else if (item.getItemId() == R.id.action_chat) {
-            mBinding.viewPager.setCurrentItem(2, false);
+            mViewPager.setCurrentItem(2, false);
             return true;
           } else {
             return false;

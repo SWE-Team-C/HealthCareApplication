@@ -1,11 +1,11 @@
 package edu.swe.healthcareapplication.view;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
@@ -15,7 +15,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
-import edu.swe.healthcareapplication.databinding.ActivitySelectTrainerBinding;
 import edu.swe.healthcareapplication.model.Trainer;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
@@ -32,23 +31,25 @@ public class SelectTrainerActivity extends AppCompatActivity implements
   private SelectTrainerAdapter mAdapter;
   private DatabaseReference mFirebaseDatabaseReference;
 
-  private ActivitySelectTrainerBinding mBinding;
+  private RecyclerView mTrainerList;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_select_trainer);
+    setContentView(R.layout.activity_select_trainer);
     mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
     initView();
     readTrainers();
   }
 
   private void initView() {
+    mTrainerList = findViewById(R.id.trainer_list);
+
     mAdapter = new SelectTrainerAdapter();
     mAdapter.setOnItemSelectListener(this);
-    mBinding.trainerList.setHasFixedSize(true);
-    mBinding.trainerList.setLayoutManager(new LinearLayoutManager(this));
-    mBinding.trainerList.setAdapter(mAdapter);
+    mTrainerList.setHasFixedSize(true);
+    mTrainerList.setLayoutManager(new LinearLayoutManager(this));
+    mTrainerList.setAdapter(mAdapter);
   }
 
   private void readTrainers() {

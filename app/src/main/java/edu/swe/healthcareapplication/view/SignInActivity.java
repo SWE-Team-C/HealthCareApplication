@@ -1,7 +1,6 @@
 package edu.swe.healthcareapplication.view;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +10,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -23,7 +23,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
-import edu.swe.healthcareapplication.databinding.ActivitySigninBinding;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
@@ -35,7 +34,8 @@ public class SignInActivity extends AppCompatActivity {
 
   private FirebaseAuth mAuth;
   private UserType mUserType;
-  private ActivitySigninBinding mBinding;
+
+  private SignInButton mGoogleSignInButton;
 
   @Override
   protected void onStart() {
@@ -49,9 +49,9 @@ public class SignInActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_signin);
+    setContentView(R.layout.activity_signin);
     mAuth = FirebaseAuth.getInstance();
-    mBinding.googleSigninButton.setOnClickListener((v) -> signInWithGoogle());
+    initView();
   }
 
   @Override
@@ -61,6 +61,11 @@ public class SignInActivity extends AppCompatActivity {
       Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
       handleSignInResult(task);
     }
+  }
+
+  private void initView() {
+    mGoogleSignInButton = findViewById(R.id.google_signin_button);
+    mGoogleSignInButton.setOnClickListener(v -> signInWithGoogle());
   }
 
   private void signInWithGoogle() {

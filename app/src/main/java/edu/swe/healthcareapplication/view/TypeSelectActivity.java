@@ -1,27 +1,27 @@
 package edu.swe.healthcareapplication.view;
 
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import edu.swe.healthcareapplication.R;
-import edu.swe.healthcareapplication.databinding.ActivityTypeSelectBinding;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 
 public class TypeSelectActivity extends AppCompatActivity implements OnClickListener {
 
-  private ActivityTypeSelectBinding mBinding;
-
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_type_select);
-    mBinding.btnTypeUser.setOnClickListener(this);
-    mBinding.btnTypeTrainer.setOnClickListener(this);
+    setContentView(R.layout.activity_type_select);
+    initView();
+  }
+
+  private void initView() {
+    findViewById(R.id.btn_type_user).setOnClickListener(this);
+    findViewById(R.id.btn_type_trainer).setOnClickListener(this);
   }
 
   @Override

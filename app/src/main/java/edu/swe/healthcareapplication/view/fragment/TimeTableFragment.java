@@ -1,9 +1,9 @@
 package edu.swe.healthcareapplication.view.fragment;
 
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
@@ -24,7 +24,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
-import edu.swe.healthcareapplication.databinding.FragmentTimetableBinding;
 import edu.swe.healthcareapplication.model.ChatRoom;
 import edu.swe.healthcareapplication.model.TimeTable;
 import edu.swe.healthcareapplication.model.UserType;
@@ -37,8 +36,10 @@ public class TimeTableFragment extends Fragment {
 
   private static final String TAG = TimeTableFragment.class.getSimpleName();
 
-  private RecyclerView mRecyclerView;
   private int mDateIndex = 0;
+
+  private RecyclerView mRecyclerView;
+  private TabLayout mTabLayout;
 
   private UserType mUserType;
   private String mTrainerId;
@@ -51,24 +52,29 @@ public class TimeTableFragment extends Fragment {
     return instance;
   }
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mDateIndex = getTodayIndex();
+  }
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
       @Nullable Bundle savedInstanceState) {
-    FragmentTimetableBinding binding = DataBindingUtil
-        .inflate(inflater, R.layout.fragment_timetable, container, false);
-    mRecyclerView = binding.timetableList;
-    mDateIndex = getTodayIndex();
-    binding.timetableList.setHasFixedSize(true);
-    binding.timetableList.setLayoutManager(new LinearLayoutManager(getActivity()));
+    View rootView = inflater.inflate(R.layout.fragment_timetable, container, false);
+    mRecyclerView = rootView.findViewById(R.id.timetable_list);
+    mTabLayout = rootView.findViewById(R.id.tab_layout);
 
+    mRecyclerView.setHasFixedSize(true);
+    mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     String[] dateStrings = getResources().getStringArray(R.array.date);
     for (int index = 0; index < 7; index++) {
-      Tab tab = binding.tabLayout.newTab().setText(dateStrings[index]);
-      binding.tabLayout.addTab(tab);
+      Tab tab = mTabLayout.newTab().setText(dateStrings[index]);
+      mTabLayout.addTab(tab);
     }
-    binding.tabLayout.getTabAt(mDateIndex).select();
-    binding.tabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
+    mTabLayout.getTabAt(mDateIndex).select();
+    mTabLayout.addOnTabSelectedListener(new OnTabSelectedListener() {
       @Override
       public void onTabSelected(Tab tab) {
         mDateIndex = tab.getPosition();
@@ -85,7 +91,7 @@ public class TimeTableFragment extends Fragment {
         // No-op
       }
     });
-    return binding.getRoot();
+    return rootView;
   }
 
   @Override
