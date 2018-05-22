@@ -56,13 +56,13 @@ public class MainActivity extends AppCompatActivity {
     mBinding.bottomNavigation.setOnNavigationItemSelectedListener(
         item -> {
           if (item.getItemId() == R.id.action_profile) {
-            mBinding.viewPager.setCurrentItem(0, true);
+            mBinding.viewPager.setCurrentItem(0, false);
             return true;
           } else if (item.getItemId() == R.id.action_timetable) {
-            mBinding.viewPager.setCurrentItem(1, true);
+            mBinding.viewPager.setCurrentItem(1, false);
             return true;
           } else if (item.getItemId() == R.id.action_chat) {
-            mBinding.viewPager.setCurrentItem(2, true);
+            mBinding.viewPager.setCurrentItem(2, false);
             return true;
           } else {
             return false;
