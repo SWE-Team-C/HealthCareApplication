@@ -6,31 +6,22 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.util.Pair;
-import android.widget.Toast;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.Trainer;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.adapter.SelectTrainerAdapter;
 import edu.swe.healthcareapplication.view.listener.OnItemSelectListener;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SelectTrainerActivity extends AppCompatActivity implements
-    OnItemSelectListener<Pair<String, Trainer>> {
+    OnItemSelectListener<String> {
 
   private static final String TAG = SelectTrainerActivity.class.getSimpleName();
 
-  private SelectTrainerAdapter mAdapter;
   private DatabaseReference mFirebaseDatabaseReference;
-
   private RecyclerView mTrainerList;
 
   @Override
@@ -45,41 +36,27 @@ public class SelectTrainerActivity extends AppCompatActivity implements
   private void initView() {
     mTrainerList = findViewById(R.id.trainer_list);
 
-    mAdapter = new SelectTrainerAdapter();
-    mAdapter.setOnItemSelectListener(this);
     mTrainerList.setHasFixedSize(true);
     mTrainerList.setLayoutManager(new LinearLayoutManager(this));
-    mTrainerList.setAdapter(mAdapter);
   }
 
   private void readTrainers() {
     DatabaseReference reference = mFirebaseDatabaseReference
         .child(DatabaseConstants.CHILD_TRAINERS);
-    reference.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
-        Iterable<DataSnapshot> trainersSnapshot = dataSnapshot.getChildren();
-        List<Pair<String, Trainer>> trainerList = new ArrayList<>();
-        for (DataSnapshot trainerSnapshot : trainersSnapshot) {
-          String trainerId = trainerSnapshot.getKey();
-          Trainer trainer = trainerSnapshot.getValue(Trainer.class);
-          trainerList.add(new Pair<>(trainerId, trainer));
-        }
-        mAdapter.setTrainerList(trainerList);
-      }
 
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
-        Log.e(TAG, "onCancelled: " + databaseError.toString());
-      }
-    });
+    FirebaseRecyclerOptions<Trainer> options = new FirebaseRecyclerOptions.Builder<Trainer>()
+        .setQuery(reference, Trainer.class)
+        .setLifecycleOwner(this)
+        .build();
+
+    SelectTrainerAdapter adapter = new SelectTrainerAdapter(options);
+    adapter.setOnItemSelectListener(this);
+    mTrainerList.setAdapter(adapter);
   }
 
   @Override
-  public void onItemSelected(Pair<String, Trainer> trainerPair) {
-    Trainer trainer = trainerPair.second;
-    Toast.makeText(this, trainer.name + " selected", Toast.LENGTH_SHORT).show();
-    navigateSelectTime(trainerPair.first);
+  public void onItemSelected(String trainerId) {
+    navigateSelectTime(trainerId);
   }
 
   private void navigateSelectTime(String trainerId) {

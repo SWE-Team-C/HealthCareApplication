@@ -2,26 +2,30 @@ package edu.swe.healthcareapplication.view.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Pair;
+import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.Trainer;
 import edu.swe.healthcareapplication.view.adapter.SelectTrainerAdapter.ViewHolder;
 import edu.swe.healthcareapplication.view.listener.OnItemSelectListener;
-import java.util.ArrayList;
-import java.util.List;
 
-public class SelectTrainerAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class SelectTrainerAdapter extends FirebaseRecyclerAdapter<Trainer, ViewHolder> {
 
-  private List<Pair<String, Trainer>> mTrainerList;
-  private OnItemSelectListener<Pair<String, Trainer>> mListener;
+  private OnItemSelectListener<String> mListener;
 
-  public SelectTrainerAdapter() {
-    mTrainerList = new ArrayList<>();
+  /**
+   * Initialize a {@link Adapter} that listens to a Firebase query. See {@link
+   * FirebaseRecyclerOptions} for configuration options.
+   */
+  public SelectTrainerAdapter(
+      @NonNull FirebaseRecyclerOptions<Trainer> options) {
+    super(options);
   }
 
   @NonNull
@@ -33,31 +37,21 @@ public class SelectTrainerAdapter extends RecyclerView.Adapter<ViewHolder> {
   }
 
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    Pair<String, Trainer> trainerPair = mTrainerList.get(position);
-    Trainer trainer = trainerPair.second;
-    holder.nameView.setText(trainer.name);
-    holder.educationView.setText(trainer.education);
-    holder.awardsView.setText(trainer.awards.get(0));
+  protected void onBindViewHolder(@NonNull ViewHolder holder, int position,
+      @NonNull Trainer model) {
+    holder.nameView.setText(model.name);
+    holder.educationView.setText(model.education);
+    holder.awardsView.setText(model.awards.get(0));
     holder.selectButton.setOnClickListener(v -> {
       if (mListener != null) {
-        mListener.onItemSelected(trainerPair);
+        mListener.onItemSelected(getRef(position).getKey());
       }
     });
   }
 
-  @Override
-  public int getItemCount() {
-    return mTrainerList.size();
-  }
-
-  public void setTrainerList(List<Pair<String, Trainer>> mTrainerList) {
-    this.mTrainerList = mTrainerList;
-    notifyDataSetChanged();
-  }
 
   public void setOnItemSelectListener(
-      OnItemSelectListener<Pair<String, Trainer>> onItemSelectListener) {
+      OnItemSelectListener<String> onItemSelectListener) {
     this.mListener = onItemSelectListener;
   }
 

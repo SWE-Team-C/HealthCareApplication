@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
-import android.support.v4.util.Pair;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,12 +18,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.ChatRoom;
@@ -33,7 +34,6 @@ import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.adapter.SelectTimeAdapter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SelectTimeActivity extends AppCompatActivity {
@@ -42,7 +42,6 @@ public class SelectTimeActivity extends AppCompatActivity {
 
   private DatabaseReference mFirebaseDatabaseReference;
   private FirebaseAuth mFirebaseAuth;
-  private SelectTimeAdapter mAdapter;
   private String mTrainerId;
 
   private Toolbar mToolbar;
@@ -128,40 +127,30 @@ public class SelectTimeActivity extends AppCompatActivity {
       }
     });
 
-    mAdapter = new SelectTimeAdapter();
     mTimetableList.setLayoutManager(new LinearLayoutManager(this));
     mTimetableList.setHasFixedSize(true);
-    mTimetableList.setAdapter(mAdapter);
 
     mFab.setOnClickListener(v -> {
       int position = mTabLayout.getSelectedTabPosition();
-      writeSelectedTimeTable(mTrainerId, mAdapter.getSelectedKeyList(), position);
+      writeSelectedTimeTable(mTrainerId,
+          ((SelectTimeAdapter) mTimetableList.getAdapter()).getSelectedKeyList(), position);
     });
   }
 
   private void readTrainerTimeTable(@NonNull String trainerId, int dateIndex) {
-    DatabaseReference reference = mFirebaseDatabaseReference
+    Query query = mFirebaseDatabaseReference
         .child(DatabaseConstants.CHILD_TIMETABLE)
         .child(trainerId)
-        .child(String.valueOf(dateIndex));
-    reference.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
-        Iterable<DataSnapshot> timeTablesSnapshot = dataSnapshot.getChildren();
-        List<Pair<String, TimeTable>> timeTableList = new ArrayList<>();
-        for (DataSnapshot timeTableSnapshot : timeTablesSnapshot) {
-          Pair<String, TimeTable> timeTablePair = new Pair<>(timeTableSnapshot.getKey(),
-              timeTableSnapshot.getValue(TimeTable.class));
-          timeTableList.add(timeTablePair);
-        }
-        mAdapter.setTimeTableList(timeTableList);
-      }
+        .child(String.valueOf(dateIndex))
+        .orderByChild("startTime");
 
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
-        Log.e(TAG, "onCancelled: " + databaseError.toString());
-      }
-    });
+    FirebaseRecyclerOptions<TimeTable> options = new FirebaseRecyclerOptions.Builder<TimeTable>()
+        .setQuery(query, TimeTable.class)
+        .setLifecycleOwner(this)
+        .build();
+
+    SelectTimeAdapter adapter = new SelectTimeAdapter(options);
+    mTimetableList.setAdapter(adapter);
   }
 
   private void writeSelectedTimeTable(@NonNull String trainerId,

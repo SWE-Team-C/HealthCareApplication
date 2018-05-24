@@ -1,27 +1,33 @@
 package edu.swe.healthcareapplication.view.adapter;
 
 import android.support.annotation.NonNull;
-import android.support.v4.util.Pair;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.TimeTable;
+import edu.swe.healthcareapplication.view.adapter.SelectTimeAdapter.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectTimeAdapter extends RecyclerView.Adapter<SelectTimeAdapter.ViewHolder> {
+public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHolder> {
 
-  private List<Pair<String, TimeTable>> mTimeTableList;
   private List<String> mSelectedKeyList;
 
-  public SelectTimeAdapter() {
-    mTimeTableList = new ArrayList<>();
+  /**
+   * Initialize a {@link Adapter} that listens to a Firebase query. See {@link
+   * FirebaseRecyclerOptions} for configuration options.
+   */
+  public SelectTimeAdapter(
+      @NonNull FirebaseRecyclerOptions<TimeTable> options) {
+    super(options);
     mSelectedKeyList = new ArrayList<>();
   }
 
@@ -34,42 +40,32 @@ public class SelectTimeAdapter extends RecyclerView.Adapter<SelectTimeAdapter.Vi
   }
 
   @Override
-  public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-    Pair<String, TimeTable> timeTablePair = mTimeTableList.get(position);
-    String key = timeTablePair.first;
-    TimeTable timeTable = timeTablePair.second;
-    if (timeTable != null) {
-      FirebaseAuth auth = FirebaseAuth.getInstance();
-      FirebaseUser currentUser = auth.getCurrentUser();
+  protected void onBindViewHolder(@NonNull ViewHolder holder, int position,
+      @NonNull TimeTable model) {
+    String key = getRef(position).getKey();
+    holder.timeView.setText(String.valueOf(model.startTime));
+    if (model.selectedUserId.equals(getUserUid())) {
+      holder.timeCheckBox.setChecked(true);
       holder.timeCheckBox.setEnabled(true);
+      mSelectedKeyList.add(key);
+    } else if (!model.selectedUserId.isEmpty()) {
       holder.timeCheckBox.setChecked(false);
-      if (currentUser != null && currentUser.getUid().equals(timeTable.selectedUserId)) {
-        holder.timeCheckBox.setChecked(true);
-        mSelectedKeyList.add(key);
-      } else if (!timeTable.selectedUserId.isEmpty()) {
-        holder.timeCheckBox.setEnabled(false);
-      }
-      holder.timeView.setText(String.valueOf(timeTable.startTime));
+      holder.timeCheckBox.setEnabled(false);
+    } else {
+      holder.timeCheckBox.setChecked(false);
+      holder.timeCheckBox.setEnabled(true);
     }
-    holder.timeCheckBox.setOnClickListener(
-        v -> {
-          if (holder.timeCheckBox.isChecked()) {
-            mSelectedKeyList.add(key);
-          } else {
-            mSelectedKeyList.remove(mSelectedKeyList.indexOf(key));
-          }
-        });
+    holder.timeCheckBox.setOnClickListener(v -> {
+      if (holder.timeCheckBox.isChecked()) {
+        mSelectedKeyList.add(key);
+      } else {
+        mSelectedKeyList.remove(mSelectedKeyList.indexOf(key));
+      }
+    });
   }
 
-  @Override
-  public int getItemCount() {
-    return mTimeTableList.size();
-  }
-
-  public void setTimeTableList(List<Pair<String, TimeTable>> timeTableList) {
-    this.mTimeTableList = timeTableList;
-    this.mSelectedKeyList.clear();
-    notifyDataSetChanged();
+  public String getUserUid() {
+    return FirebaseAuth.getInstance().getCurrentUser().getUid();
   }
 
   public List<String> getSelectedKeyList() {
