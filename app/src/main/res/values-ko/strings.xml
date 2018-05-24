@@ -14,6 +14,7 @@
   <string name="action_profile">프로필</string>
   <string name="action_timetable">시간표</string>
   <string name="action_chat">대화</string>
+  <string name="action_send">보내기</string>
   <!-- Type -->
   <string name="type_user">사용자</string>
   <string name="type_trainer">트레이너</string>

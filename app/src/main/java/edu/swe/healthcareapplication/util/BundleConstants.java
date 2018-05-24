@@ -6,4 +6,8 @@ public class BundleConstants {
 
   public static final String BUNDLE_TRAINER_ID = "bundle_trainer_id";
 
+  public static final String BUNDLE_CHAT_ROOM_KEY = "bundle_chat_room_key";
+
+  public static final String BUNDLE_CHAT_NAME = "bundle_chat_name";
+
 }

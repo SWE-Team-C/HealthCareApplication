@@ -38,6 +38,9 @@
       android:label="@string/activity_select_time_name"
       android:name=".view.SelectTimeActivity"
       android:theme="@style/AppTheme.NoActionBar"/>
+    <activity
+      android:name=".view.ChatRoomActivity"
+      android:windowSoftInputMode="stateHidden|adjustResize"/>
   </application>
 
 </manifest>

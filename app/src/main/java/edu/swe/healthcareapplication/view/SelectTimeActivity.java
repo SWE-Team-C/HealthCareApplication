@@ -210,7 +210,7 @@ public class SelectTimeActivity extends AppCompatActivity {
     FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
     if (currentUser != null) {
       String userUid = currentUser.getUid();
-      ChatRoom chatRoom = new ChatRoom(userUid, trainerId);
+      ChatRoom chatRoom = new ChatRoom(userUid, trainerId, null);
       DatabaseReference reference = mFirebaseDatabaseReference
           .child(DatabaseConstants.CHILD_CHAT_ROOM);
       reference.push().setValue(chatRoom);

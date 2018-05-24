@@ -12,8 +12,14 @@ public class DatabaseConstants {
 
   public static final String CHILD_TIMETABLE = "timetable";
 
+  public static final String CHILD_CHATS = "chats";
+
   public static final String USER_TYPE_USER = "user";
 
   public static final String USER_TYPE_TRAINER = "trainer";
+
+  public static final String CHAT_TYPE_TEXT = "text";
+
+  public static final String CHAT_TYPE_IMAGE = "image";
 
 }

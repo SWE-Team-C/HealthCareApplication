@@ -1,5 +1,4 @@
 <resources>
-
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
     <!-- Customize your theme here. -->
@@ -16,6 +15,24 @@
 
   <style name="SplashTheme" parent="AppTheme.NoActionBar">
     <item name="android:background">@drawable/layer_splash_screen</item>
+  </style>
+
+  <style name="List"/>
+
+  <style name="List.TwoLine"/>
+
+  <style name="List.TwoLine.Layout">
+    <item name="android:background">?attr/selectableItemBackground</item>
+    <item name="android:height">72dp</item>
+    <item name="android:padding">16dp</item>
+  </style>
+
+  <style name="List.TwoLine.TitleText">
+    <item name="android:textSize">16sp</item>
+  </style>
+
+  <style name="List.TwoLine.SubText">
+    <item name="android:textSize">14sp</item>
   </style>
 
 </resources>
