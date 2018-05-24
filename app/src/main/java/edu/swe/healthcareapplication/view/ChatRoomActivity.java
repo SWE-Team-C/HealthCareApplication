@@ -195,7 +195,7 @@ public class ChatRoomActivity extends AppCompatActivity {
 
   private String getDateString(long timestamp) {
     Date date = new Date(timestamp);
-    SimpleDateFormat format = new SimpleDateFormat("hh:mm");
+    SimpleDateFormat format = new SimpleDateFormat("a hh:mm");
     return format.format(date);
   }
 
