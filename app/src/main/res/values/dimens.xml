@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="image_profile_size">40dp</dimen>
+  <dimen name="keyline_mini">4dp</dimen>
+  <dimen name="keyline_small">8dp</dimen>
+  <dimen name="keyline_normal">16dp</dimen>
+</resources>

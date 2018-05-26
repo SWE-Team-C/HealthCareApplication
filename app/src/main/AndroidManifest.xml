@@ -30,7 +30,8 @@
       android:label="@string/activity_sign_in_name"
       android:name=".view.SignInActivity"/>
     <activity
-      android:name=".view.SignUpActivity"/>
+      android:name=".view.SignUpActivity"
+      android:windowSoftInputMode="stateHidden"/>
     <activity
       android:label="@string/activity_select_trainer_name"
       android:name=".view.SelectTrainerActivity"/>
@@ -41,6 +42,9 @@
     <activity
       android:name=".view.ChatRoomActivity"
       android:windowSoftInputMode="stateHidden|adjustResize"/>
+    <activity
+      android:label="@string/activity_edit_profile"
+      android:name=".view.EditProfileActivity"/>
   </application>
 
 </manifest>
