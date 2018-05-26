@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="edu.swe.healthcareapplication">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".BaseApplication"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".view.SplashActivity"
+            android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.TypeSelectActivity"
+            android:exported="true"
+            android:label="@string/activity_type_select_name" />
+        <activity
+            android:name=".view.SignInActivity"
+            android:label="@string/activity_sign_in_name" />
+        <activity android:name=".view.SignUpActivity" />
+        <activity
+            android:name=".view.SelectTrainerActivity"
+            android:label="@string/activity_select_trainer_name" />
+        <activity
+            android:name=".view.SelectTimeActivity"
+            android:label="@string/activity_select_time_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".view.ChatRoomActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".view.ProfileActivity"></activity>
+    </application>
+
+</manifest>
