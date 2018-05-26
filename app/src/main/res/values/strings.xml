@@ -9,7 +9,6 @@
   <string name="activity_select_time_name">Select Time</string>
   <string name="activity_edit_profile">Edit Profile</string>
   <!-- Action -->
-  <string name="action_select">Select</string>
   <string name="action_select_complete">Select Complete</string>
   <string name="action_profile">Profile</string>
   <string name="action_timetable">TimeTable</string>

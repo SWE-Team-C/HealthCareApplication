@@ -10,7 +10,6 @@
   <string name="activity_select_time_name">시간 선택</string>
   <string name="activity_edit_profile">프로필 수정</string>
   <!-- Action -->
-  <string name="action_select">선택</string>
   <string name="action_select_complete">선택 완료</string>
   <string name="action_profile">프로필</string>
   <string name="action_timetable">시간표</string>
