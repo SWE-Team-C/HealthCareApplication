@@ -1,18 +1,28 @@
 package edu.swe.healthcareapplication.view;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
-import edu.swe.healthcareapplication.view.fragment.TrainerStepFragment;
-import edu.swe.healthcareapplication.view.fragment.UserStepFragment;
+import edu.swe.healthcareapplication.util.step.DataManager;
+import edu.swe.healthcareapplication.util.step.Navigator;
+import edu.swe.healthcareapplication.view.adapter.TrainerStepAdapter;
+import edu.swe.healthcareapplication.view.adapter.UserStepAdapter;
+import java.util.HashMap;
+import java.util.Map;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements DataManager, Navigator {
 
   private UserType mUserType;
+  private Map<String, Object> mStepData;
+  private ViewPager mViewPager;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -22,8 +32,9 @@ public class SignUpActivity extends AppCompatActivity {
     if (bundle != null) {
       mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
     }
+    mStepData = new HashMap<>();
     initTitle();
-    initStepView();
+    initView();
   }
 
   private void initTitle() {
@@ -34,13 +45,72 @@ public class SignUpActivity extends AppCompatActivity {
     }
   }
 
-  private void initStepView() {
-    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+  private void initView() {
+    mViewPager = findViewById(R.id.view_pager);
     if (mUserType == UserType.USER) {
-      transaction.add(R.id.step_container, new UserStepFragment());
-    } else if (mUserType == UserType.TRAINER) {
-      transaction.add(R.id.step_container, new TrainerStepFragment());
+      UserStepAdapter adapter = new UserStepAdapter(getSupportFragmentManager());
+      mViewPager.setAdapter(adapter);
+    } else {
+      TrainerStepAdapter adapter = new TrainerStepAdapter(getSupportFragmentManager());
+      mViewPager.setAdapter(adapter);
     }
-    transaction.commit();
+  }
+
+  @Override
+  public void saveData(String key, Object value) {
+    mStepData.put(key, value);
+  }
+
+  @Override
+  public Object getData(String key) {
+    return mStepData.get(key);
+  }
+
+  @Override
+  public Map<String, Object> getAllData() {
+    return mStepData;
+  }
+
+  @Override
+  public boolean nextStep() {
+    mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
+    hideKeyboard();
+    return true;
+  }
+
+  @Override
+  public boolean backStep() {
+    if (mViewPager.getCurrentItem() != 0) {
+      mViewPager.setCurrentItem(mViewPager.getCurrentItem() - 1, true);
+      hideKeyboard();
+      return true;
+    }
+    return false;
+  }
+
+  @Override
+  public void completeStep() {
+    if (mUserType == UserType.USER) {
+      Intent intent = new Intent(this, SelectTrainerActivity.class);
+      startActivity(intent);
+      finish();
+    } else {
+      return;
+    }
+  }
+
+  @Override
+  public void onBackPressed() {
+    if (!backStep()) {
+      super.onBackPressed();
+    }
+  }
+
+  private void hideKeyboard() {
+    View view = this.getCurrentFocus();
+    if (view != null) {
+      InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+      imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
   }
 }

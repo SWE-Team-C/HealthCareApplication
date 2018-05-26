@@ -49,7 +49,7 @@ public class SelectTrainerActivity extends AppCompatActivity implements
         .setLifecycleOwner(this)
         .build();
 
-    SelectTrainerAdapter adapter = new SelectTrainerAdapter(options);
+    SelectTrainerAdapter adapter = new SelectTrainerAdapter(this, options);
     adapter.setOnItemSelectListener(this);
     mTrainerList.setAdapter(adapter);
   }
