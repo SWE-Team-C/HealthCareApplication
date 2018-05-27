@@ -30,4 +30,6 @@
   <string name="msg_timetable_added">Added time table</string>
   <string name="msg_timetable_not_selected">Select least one</string>
   <string name="msg_profile_saved">Saved profile</string>
+  <!-- Etc -->
+  <string name="empty_item">None</string>
 </resources>

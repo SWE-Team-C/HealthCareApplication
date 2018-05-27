@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,7 +28,8 @@ import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.util.step.DataManager;
 import edu.swe.healthcareapplication.util.step.Navigator;
-import java.util.Collections;
+import edu.swe.healthcareapplication.view.adapter.AwardAdapter;
+import java.util.List;
 import java.util.Map;
 
 public class TrainerStepFragment extends Fragment {
@@ -39,6 +43,9 @@ public class TrainerStepFragment extends Fragment {
 
   private EditText mEditEducation;
   private EditText mEditAwards;
+  private RecyclerView mAwardList;
+  private ImageButton mBtnAddAward;
+  private AwardAdapter mAwardAdapter;
 
   public static TrainerStepFragment newInstance(int stepPosition) {
     TrainerStepFragment fragment = new TrainerStepFragment();
@@ -86,7 +93,23 @@ public class TrainerStepFragment extends Fragment {
       rootView = inflater.inflate(R.layout.step_trainer_02, container, false);
       mEditEducation = rootView.findViewById(R.id.edit_education);
       mEditAwards = rootView.findViewById(R.id.edit_awards);
+      mAwardList = rootView.findViewById(R.id.awards_list);
+      mBtnAddAward = rootView.findViewById(R.id.btn_add_award);
       mBtnOk = rootView.findViewById(R.id.btn_ok);
+
+      mAwardList.setLayoutManager(new LinearLayoutManager(getActivity()));
+      mAwardList.setHasFixedSize(true);
+
+      mAwardAdapter = new AwardAdapter();
+      mAwardList.setAdapter(mAwardAdapter);
+
+      mBtnAddAward.setOnClickListener(v -> {
+        String award = mEditAwards.getText().toString();
+        if (!TextUtils.isEmpty(award)) {
+          mAwardAdapter.addAward(award);
+          mEditAwards.setText("");
+        }
+      });
 
       mBtnOk.setOnClickListener(v -> {
         Context context = getContext();
@@ -94,16 +117,16 @@ public class TrainerStepFragment extends Fragment {
           DataManager dataManager = (DataManager) context;
           Navigator navigator = (Navigator) context;
           String education = mEditEducation.getText().toString();
-          String awards = mEditAwards.getText().toString();
           if (TextUtils.isEmpty(education)) {
             // Error message
           }
-          if (TextUtils.isEmpty(awards)) {
-
-          }
-          if (!TextUtils.isEmpty(education) && !TextUtils.isEmpty(awards)) {
+          if (!TextUtils.isEmpty(education)) {
+            List<String> awards = mAwardAdapter.getAwardList();
+            if (awards.size() == 0) {
+              awards.add(getString(R.string.empty_item));
+            }
             dataManager.saveData("education", education);
-            dataManager.saveData("awards", Integer.parseInt(awards));
+            dataManager.saveData("awards", awards);
             writeDatabase(dataManager.getAllData());
             navigator.completeStep();
           }
@@ -126,8 +149,8 @@ public class TrainerStepFragment extends Fragment {
   private void writeDatabase(Map<String, Object> trainerData) {
     String name = (String) trainerData.get("name");
     String education = (String) trainerData.get("education");
-    String awards = (String) trainerData.get("awards");
-    Trainer trainer = new Trainer(name, education, Collections.singletonList(awards));
+    List<String> awards = (List<String>) trainerData.get("awards");
+    Trainer trainer = new Trainer(name, education, awards);
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
     FirebaseUser currentUser = auth.getCurrentUser();
