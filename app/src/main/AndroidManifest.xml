@@ -37,6 +37,11 @@
       android:name=".view.SelectTimeActivity"
       android:theme="@style/AppTheme.NoActionBar"/>
     <activity
+      android:label="@string/activity_edit_timetable"
+      android:name=".view.EditTimeActivity"
+      android:theme="@style/AppTheme.NoActionBar"
+      android:windowSoftInputMode="stateHidden"/>
+    <activity
       android:name=".view.ChatRoomActivity"
       android:windowSoftInputMode="stateHidden|adjustResize"/>
     <activity

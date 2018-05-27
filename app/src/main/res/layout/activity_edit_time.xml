@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:id="@+id/coordinator_layout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <android.support.design.widget.AppBarLayout
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:titleTextColor="@android:color/white"/>
+
+    <android.support.design.widget.TabLayout
+      android:id="@+id/tab_layout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/colorPrimary"
+      app:tabGravity="fill"
+      app:tabMode="fixed"
+      app:tabSelectedTextColor="@android:color/white"
+      app:tabTextColor="@android:color/white">
+    </android.support.design.widget.TabLayout>
+  </android.support.design.widget.AppBarLayout>
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="@dimen/keyline_small"
+    android:paddingLeft="@dimen/keyline_small"
+    android:paddingRight="@dimen/keyline_small"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.design.widget.TextInputLayout
+      android:id="@+id/edit_time_layout"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginRight="@dimen/keyline_small"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toLeftOf="@+id/btn_add_time"
+      app:layout_constraintTop_toBottomOf="@id/edit_education_layout">
+
+      <android.support.design.widget.TextInputEditText
+        android:id="@+id/edit_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_time"
+        android:inputType="number"
+        android:maxLength="2"
+        android:maxLines="1"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageButton
+      android:id="@+id/btn_add_time"
+      android:layout_width="40dp"
+      android:layout_height="40dp"
+      android:background="?attr/selectableItemBackground"
+      android:src="@drawable/ic_add_white_24dp"
+      android:tint="@color/colorAccent"
+      app:layout_constraintBottom_toBottomOf="@+id/edit_time_layout"
+      app:layout_constraintRight_toRightOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/edit_time_layout"/>
+
+    <android.support.v7.widget.RecyclerView
+      android:id="@+id/timetable_list"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_marginTop="@dimen/keyline_small"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/edit_time_layout"/>
+
+  </android.support.constraint.ConstraintLayout>
+
+</android.support.design.widget.CoordinatorLayout>

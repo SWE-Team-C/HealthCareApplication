@@ -95,7 +95,9 @@ public class SignUpActivity extends AppCompatActivity implements DataManager, Na
       startActivity(intent);
       finish();
     } else {
-      return;
+      Intent intent = new Intent(this, EditTimeActivity.class);
+      startActivity(intent);
+      finish();
     }
   }
 

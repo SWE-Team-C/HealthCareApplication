@@ -12,7 +12,7 @@ public class TimeTable {
     // Default constructor required for calls to DataSnapshot.getValue(TimeTable.class)
   }
 
-  public TimeTable(String selectedUserId, int startTime) {
+  public TimeTable(int startTime, String selectedUserId) {
     this.selectedUserId = selectedUserId;
     this.startTime = startTime;
   }

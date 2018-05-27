@@ -7,11 +7,14 @@
   <string name="activity_select_trainer_name">Select trainer</string>
   <string name="activity_select_time_name">Select Time</string>
   <string name="activity_edit_profile">Edit Profile</string>
+  <string name="activity_edit_timetable">Edit TimeTable</string>
   <!-- Action -->
   <string name="action_select_complete">Select Complete</string>
   <string name="action_profile">Profile</string>
   <string name="action_timetable">TimeTable</string>
   <string name="action_chat">Chat</string>
+  <string name="action_complete">Complete</string>
+  <string name="action_edit_timetable">Edit timetable</string>
   <!-- Type -->
   <string name="type_user">User</string>
   <string name="type_trainer">Trainer</string>
@@ -23,6 +26,7 @@
   <string name="hint_education">Education</string>
   <string name="hint_awards">Awards</string>
   <string name="hint_input_gender">Gender</string>
+  <string name="hint_time">Time</string>
   <!-- Message -->
   <string name="msg_login_cancelled">Login Cancelled</string>
   <string name="msg_login_no_connection">No internet connection</string>
@@ -30,6 +34,7 @@
   <string name="msg_timetable_added">Added time table</string>
   <string name="msg_timetable_not_selected">Select least one</string>
   <string name="msg_profile_saved">Saved profile</string>
+  <string name="msg_timetable_exist_time">Exist time</string>
   <!-- Etc -->
   <string name="empty_item">None</string>
 </resources>

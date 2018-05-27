@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,6 +41,7 @@ public class TimeTableFragment extends Fragment {
 
   private RecyclerView mRecyclerView;
   private TabLayout mTabLayout;
+  private Toolbar mToolbar;
 
   private UserType mUserType;
   private String mTrainerId;
@@ -65,6 +67,14 @@ public class TimeTableFragment extends Fragment {
     View rootView = inflater.inflate(R.layout.fragment_timetable, container, false);
     mRecyclerView = rootView.findViewById(R.id.timetable_list);
     mTabLayout = rootView.findViewById(R.id.tab_layout);
+    mToolbar = rootView.findViewById(R.id.toolbar);
+//    mToolbar.inflateMenu(R.menu.menu_timetable);
+//    mToolbar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//      @Override
+//      public boolean onMenuItemClick(MenuItem item) {
+//        return false;
+//      }
+//    });
 
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
