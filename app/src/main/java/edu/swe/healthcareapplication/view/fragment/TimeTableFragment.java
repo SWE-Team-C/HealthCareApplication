@@ -234,7 +234,7 @@ public class TimeTableFragment extends Fragment {
       @Override
       protected void onBindViewHolder(@NonNull UserTimeTableHolder holder, int position,
           @NonNull TimeTable model) {
-        holder.timeView.setText(String.valueOf(model.startTime));
+        holder.timeView.setText(Utils.formatHour(getContext(), model.startTime));
       }
     };
     mRecyclerView.setAdapter(adapter);
