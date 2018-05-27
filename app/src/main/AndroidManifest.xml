@@ -27,9 +27,6 @@
       android:label="@string/activity_type_select_name"
       android:name=".view.TypeSelectActivity"/>
     <activity
-      android:label="@string/activity_sign_in_name"
-      android:name=".view.SignInActivity"/>
-    <activity
       android:name=".view.SignUpActivity"
       android:windowSoftInputMode="stateHidden"/>
     <activity

@@ -1,7 +1,6 @@
 <resources>
   <string name="app_name">HealthCareApplication</string>
   <!-- Activity Name -->
-  <string name="activity_sign_in_name">Sign In</string>
   <string name="activity_signup_user_name">Input User Info</string>
   <string name="activity_signup_trainer_name">Input Trainer Info</string>
   <string name="activity_type_select_name">Select User Type</string>
@@ -25,9 +24,9 @@
   <string name="hint_awards">Awards</string>
   <string name="hint_input_gender">Gender</string>
   <!-- Message -->
-  <string name="msg_login_successful">Login Successful</string>
-  <string name="msg_login_failed">Login failed</string>
-  <string name="msg_already_signup">Already Signed Up Account</string>
+  <string name="msg_login_cancelled">Login Cancelled</string>
+  <string name="msg_login_no_connection">No internet connection</string>
+  <string name="msg_login_unknown_error">Unknown error occurred</string>
   <string name="msg_timetable_added">Added time table</string>
   <string name="msg_timetable_not_selected">Select least one</string>
   <string name="msg_profile_saved">Saved profile</string>

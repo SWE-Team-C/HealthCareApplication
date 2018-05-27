@@ -3,14 +3,28 @@ package edu.swe.healthcareapplication.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.AuthUI.IdpConfig;
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import java.util.Arrays;
+import java.util.List;
 
 public class TypeSelectActivity extends AppCompatActivity implements OnClickListener {
+
+  private static final String TAG = TypeSelectActivity.class.getSimpleName();
+  private static final int RC_SIGN_IN = 123;
+
+  private UserType mSelectUserType;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -25,22 +39,67 @@ public class TypeSelectActivity extends AppCompatActivity implements OnClickList
   }
 
   @Override
-  public void onClick(View v) {
-    Intent intent = new Intent(this, SignInActivity.class);
-    Bundle bundle = new Bundle();
-    if (v.getId() == R.id.btn_type_user) {
-      bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, UserType.USER);
-    } else if (v.getId() == R.id.btn_type_trainer) {
-      bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, UserType.TRAINER);
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    if (requestCode == RC_SIGN_IN) {
+      IdpResponse response = IdpResponse.fromResultIntent(data);
+      if (resultCode == RESULT_OK) {
+        navigateSignUp();
+      } else {
+        if (response == null) {
+          showToast(R.string.msg_login_cancelled);
+          return;
+        }
+        if (response.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+          showToast(R.string.msg_login_no_connection);
+          return;
+        }
+        showToast(R.string.msg_login_unknown_error);
+        Log.e(TAG, "Sign-in error: ", response.getError());
+      }
     }
-    intent.putExtras(bundle);
-    startActivity(intent);
-    finish();
   }
 
   @Override
   public void onBackPressed() {
     // TODO 종료할지 물어보는 다이얼로그 추가
     super.onBackPressed();
+  }
+
+  @Override
+  public void onClick(View v) {
+    if (v.getId() == R.id.btn_type_user) {
+      mSelectUserType = UserType.USER;
+    } else if (v.getId() == R.id.btn_type_trainer) {
+      mSelectUserType = UserType.TRAINER;
+    }
+    signIn();
+  }
+
+  private void showToast(@StringRes int message) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+  }
+
+  private void signIn() {
+    List<IdpConfig> providers = Arrays.asList(
+        new AuthUI.IdpConfig.EmailBuilder().build(),
+        new AuthUI.IdpConfig.GoogleBuilder().build());
+
+    startActivityForResult(
+        AuthUI.getInstance()
+            .createSignInIntentBuilder()
+            .setAvailableProviders(providers)
+            .setLogo(R.mipmap.ic_launcher_round)
+            .build(),
+        RC_SIGN_IN);
+  }
+
+  private void navigateSignUp() {
+    Intent intent = new Intent(this, SignUpActivity.class);
+    Bundle bundle = new Bundle();
+    bundle.putSerializable(BundleConstants.BUNDLE_USER_TYPE, mSelectUserType);
+    intent.putExtras(bundle);
+    startActivity(intent);
+    finish();
   }
 }
