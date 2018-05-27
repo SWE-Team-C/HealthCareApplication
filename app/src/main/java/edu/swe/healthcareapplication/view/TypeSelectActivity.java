@@ -88,6 +88,7 @@ public class TypeSelectActivity extends AppCompatActivity implements OnClickList
     startActivityForResult(
         AuthUI.getInstance()
             .createSignInIntentBuilder()
+            .setIsSmartLockEnabled(false)
             .setAvailableProviders(providers)
             .setLogo(R.mipmap.ic_launcher_round)
             .build(),
