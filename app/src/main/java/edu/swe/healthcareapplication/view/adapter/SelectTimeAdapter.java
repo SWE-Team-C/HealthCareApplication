@@ -49,16 +49,16 @@ public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHo
       @NonNull TimeTable model) {
     String key = getRef(position).getKey();
     holder.timeView.setText(Utils.formatHour(mContext, model.startTime));
-    if (model.selectedUserId.equals(getUserUid())) {
+    if (model.selectedUserId == null) {
+      holder.timeCheckBox.setChecked(false);
+      holder.timeCheckBox.setEnabled(true);
+    } else if (model.selectedUserId.equals(getUserUid())) {
       holder.timeCheckBox.setChecked(true);
       holder.timeCheckBox.setEnabled(true);
       mSelectedKeyList.add(key);
-    } else if (!model.selectedUserId.isEmpty()) {
-      holder.timeCheckBox.setChecked(false);
-      holder.timeCheckBox.setEnabled(false);
     } else {
       holder.timeCheckBox.setChecked(false);
-      holder.timeCheckBox.setEnabled(true);
+      holder.timeCheckBox.setEnabled(false);
     }
     holder.timeCheckBox.setOnClickListener(v -> {
       if (holder.timeCheckBox.isChecked()) {
