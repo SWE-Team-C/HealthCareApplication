@@ -30,6 +30,7 @@ import edu.swe.healthcareapplication.model.TimeTable;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
+import edu.swe.healthcareapplication.util.Utils;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -170,7 +171,7 @@ public class TimeTableFragment extends Fragment {
       @Override
       protected void onBindViewHolder(@NonNull TrainerTimeTableHolder holder, int position,
           @NonNull TimeTable model) {
-        holder.timeView.setText(String.valueOf(model.startTime));
+        holder.timeView.setText(Utils.formatHour(getContext(), model.startTime));
       }
     };
     mRecyclerView.setAdapter(adapter);

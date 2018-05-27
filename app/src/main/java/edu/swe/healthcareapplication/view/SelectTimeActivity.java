@@ -149,7 +149,7 @@ public class SelectTimeActivity extends AppCompatActivity {
         .setLifecycleOwner(this)
         .build();
 
-    SelectTimeAdapter adapter = new SelectTimeAdapter(options);
+    SelectTimeAdapter adapter = new SelectTimeAdapter(this, options);
     mTimetableList.setAdapter(adapter);
   }
 

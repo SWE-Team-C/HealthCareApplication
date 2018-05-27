@@ -1,5 +1,6 @@
 package edu.swe.healthcareapplication.view.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.support.v7.widget.RecyclerView.ViewHolder;
@@ -13,17 +14,22 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.TimeTable;
+import edu.swe.healthcareapplication.util.Utils;
 import edu.swe.healthcareapplication.view.adapter.EditTimeAdapter.EditTimeHolder;
 
 public class EditTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, EditTimeHolder> {
+
+  private Context mContext;
 
   /**
    * Initialize a {@link Adapter} that listens to a Firebase query. See {@link
    * FirebaseRecyclerOptions} for configuration options.
    */
   public EditTimeAdapter(
+      Context context,
       @NonNull FirebaseRecyclerOptions<TimeTable> options) {
     super(options);
+    this.mContext = context;
   }
 
   @NonNull
@@ -39,7 +45,7 @@ public class EditTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, EditTime
       @NonNull TimeTable model) {
     DatabaseReference parent = getRef(position).getParent();
     String key = getRef(position).getKey();
-    holder.timeView.setText(String.valueOf(model.startTime));
+    holder.timeView.setText(Utils.formatHour(mContext, model.startTime));
     holder.btnRemove.setOnClickListener(v -> {
       parent.child(key).removeValue();
     });

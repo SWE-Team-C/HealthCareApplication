@@ -1,5 +1,6 @@
 package edu.swe.healthcareapplication.view.adapter;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.RecyclerView;
@@ -13,12 +14,14 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.TimeTable;
+import edu.swe.healthcareapplication.util.Utils;
 import edu.swe.healthcareapplication.view.adapter.SelectTimeAdapter.ViewHolder;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHolder> {
 
+  private Context mContext;
   private List<String> mSelectedKeyList;
 
   /**
@@ -26,9 +29,11 @@ public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHo
    * FirebaseRecyclerOptions} for configuration options.
    */
   public SelectTimeAdapter(
+      Context context,
       @NonNull FirebaseRecyclerOptions<TimeTable> options) {
     super(options);
-    mSelectedKeyList = new ArrayList<>();
+    this.mContext = context;
+    this.mSelectedKeyList = new ArrayList<>();
   }
 
   @NonNull
@@ -43,7 +48,7 @@ public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHo
   protected void onBindViewHolder(@NonNull ViewHolder holder, int position,
       @NonNull TimeTable model) {
     String key = getRef(position).getKey();
-    holder.timeView.setText(String.valueOf(model.startTime));
+    holder.timeView.setText(Utils.formatHour(mContext, model.startTime));
     if (model.selectedUserId.equals(getUserUid())) {
       holder.timeCheckBox.setChecked(true);
       holder.timeCheckBox.setEnabled(true);

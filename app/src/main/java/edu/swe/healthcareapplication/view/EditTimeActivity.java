@@ -150,7 +150,7 @@ public class EditTimeActivity extends AppCompatActivity {
         .setLifecycleOwner(this)
         .build();
 
-    EditTimeAdapter adapter = new EditTimeAdapter(options);
+    EditTimeAdapter adapter = new EditTimeAdapter(this, options);
     mTimetableList.setAdapter(adapter);
   }
 

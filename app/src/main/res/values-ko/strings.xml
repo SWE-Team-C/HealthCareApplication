@@ -38,4 +38,6 @@
   <string name="msg_timetable_exist_time">이미 추가된 시간입니다</string>
   <!-- Etc -->
   <string name="empty_item">없음</string>
+  <string name="hour_format_am">오전 %d:00</string>
+  <string name="hour_format_pm">오후 %d:00</string>
 </resources>
