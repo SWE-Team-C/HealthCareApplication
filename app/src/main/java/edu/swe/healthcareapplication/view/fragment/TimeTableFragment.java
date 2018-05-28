@@ -58,6 +58,10 @@ public class TimeTableFragment extends Fragment {
   @Override
   public void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    Bundle bundle = getArguments();
+    if (bundle != null) {
+      mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
+    }
     mDateIndex = getTodayIndex();
   }
 
@@ -108,10 +112,6 @@ public class TimeTableFragment extends Fragment {
   @Override
   public void onStart() {
     super.onStart();
-    Bundle bundle = getArguments();
-    if (bundle != null) {
-      mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
-    }
     requestTimeTable();
   }
 

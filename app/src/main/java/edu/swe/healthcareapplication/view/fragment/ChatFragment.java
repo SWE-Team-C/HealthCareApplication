@@ -46,6 +46,15 @@ public class ChatFragment extends Fragment {
     return instance;
   }
 
+  @Override
+  public void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    Bundle bundle = getArguments();
+    if (bundle != null) {
+      mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
+    }
+  }
+
   @Nullable
   @Override
   public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -60,10 +69,6 @@ public class ChatFragment extends Fragment {
   @Override
   public void onStart() {
     super.onStart();
-    Bundle bundle = getArguments();
-    if (bundle != null) {
-      mUserType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
-    }
     readChatRoom();
   }
 
