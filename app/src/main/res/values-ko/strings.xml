@@ -22,11 +22,11 @@
   <string name="type_gender_man">남자</string>
   <string name="type_gender_woman">여자</string>
   <!-- Hint -->
-  <string name="hint_input_name">이름</string>
-  <string name="hint_input_age">나이</string>
+  <string name="hint_name">이름</string>
+  <string name="hint_age">나이</string>
   <string name="hint_education">학력</string>
   <string name="hint_awards">수상경력</string>
-  <string name="hint_input_gender">성별</string>
+  <string name="hint_gender">성별</string>
   <string name="hint_time">시간</string>
   <!-- Message -->
   <string name="msg_login_cancelled">로그인이 취소되었습니다</string>
