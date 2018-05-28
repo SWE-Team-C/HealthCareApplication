@@ -46,7 +46,8 @@
       android:windowSoftInputMode="stateHidden|adjustResize"/>
     <activity
       android:label="@string/activity_edit_profile"
-      android:name=".view.EditProfileActivity"/>
+      android:name=".view.EditProfileActivity"
+      android:windowSoftInputMode="stateHidden"/>
   </application>
 
 </manifest>

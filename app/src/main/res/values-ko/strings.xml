@@ -35,6 +35,7 @@
   <string name="msg_timetable_added">선택한 시간이 추가되었습니다</string>
   <string name="msg_timetable_not_selected">최소 하나 이상 선택해야합니다</string>
   <string name="msg_profile_saved">프로필이 저장되었습니다</string>
+  <string name="msg_profile_save_failed">프로필 저장을 실패했습니다</string>
   <string name="msg_timetable_exist_time">이미 추가된 시간입니다</string>
   <!-- Etc -->
   <string name="empty_item">없음</string>
