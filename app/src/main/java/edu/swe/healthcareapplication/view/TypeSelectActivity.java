@@ -2,6 +2,7 @@ package edu.swe.healthcareapplication.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +14,17 @@ import com.firebase.ui.auth.AuthUI;
 import com.firebase.ui.auth.AuthUI.IdpConfig;
 import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import edu.swe.healthcareapplication.util.DatabaseConstants;
 import java.util.Arrays;
 import java.util.List;
 
@@ -44,7 +53,8 @@ public class TypeSelectActivity extends AppCompatActivity implements OnClickList
     if (requestCode == RC_SIGN_IN) {
       IdpResponse response = IdpResponse.fromResultIntent(data);
       if (resultCode == RESULT_OK) {
-        navigateSignUp();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        checkSignUpUser(currentUser);
       } else {
         if (response == null) {
           showToast(R.string.msg_login_cancelled);
@@ -93,6 +103,44 @@ public class TypeSelectActivity extends AppCompatActivity implements OnClickList
             .setLogo(R.mipmap.ic_launcher_round)
             .build(),
         RC_SIGN_IN);
+  }
+
+  private void checkSignUpUser(@NonNull FirebaseUser user) {
+    String uid = user.getUid();
+
+    DatabaseReference userReference = FirebaseDatabase.getInstance().getReference()
+        .child(DatabaseConstants.CHILD_USER_TYPES)
+        .child(uid);
+
+    userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+      @Override
+      public void onDataChange(DataSnapshot dataSnapshot) {
+        String value = (String) dataSnapshot.getValue();
+        if (value != null) {
+          UserType userType;
+          if (value.equals(DatabaseConstants.USER_TYPE_TRAINER)) {
+            userType = UserType.TRAINER;
+          } else {
+            userType = UserType.USER;
+          }
+          navigateMain(userType);
+        } else {
+          navigateSignUp();
+        }
+      }
+
+      @Override
+      public void onCancelled(DatabaseError databaseError) {
+        Log.e(TAG, "onCancelled: " + databaseError.toString());
+      }
+    });
+  }
+
+  private void navigateMain(UserType userType) {
+    Intent intent = new Intent(this, MainActivity.class);
+    intent.putExtra(BundleConstants.BUNDLE_USER_TYPE, userType);
+    startActivity(intent);
+    finish();
   }
 
   private void navigateSignUp() {
