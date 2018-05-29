@@ -34,7 +34,6 @@ public class ProfileFragment extends Fragment {
   private ViewBinder mViewBinder;
   private FloatingActionButton mFab;
 
-
   public static ProfileFragment newInstance(UserType userType) {
     ProfileFragment instance = new ProfileFragment();
     Bundle bundle = new Bundle();

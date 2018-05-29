@@ -60,6 +60,7 @@ public class TrainerEditProfileFragment extends Fragment {
       }
 
       mAdapter.addAward(award);
+      mEditAward.setText("");
     });
 
     mAwardsList.setHasFixedSize(true);
