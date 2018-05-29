@@ -29,9 +29,23 @@
       app:tabTextColor="@android:color/white"/>
   </android.support.design.widget.AppBarLayout>
 
-  <android.support.v7.widget.RecyclerView
-    android:id="@+id/timetable_list"
+  <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <edu.swe.healthcareapplication.view.widget.RecyclerViewWithEmptyView
+      android:id="@+id/timetable_list"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"/>
+
+    <TextView
+      android:id="@+id/empty_timetable"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:text="@string/empty_timetable"
+      android:visibility="gone"/>
+  </FrameLayout>
+
 </android.support.design.widget.CoordinatorLayout>

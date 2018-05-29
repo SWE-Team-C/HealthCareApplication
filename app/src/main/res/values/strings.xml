@@ -38,6 +38,7 @@
   <string name="msg_timetable_exist_time">Exist time</string>
   <!-- Etc -->
   <string name="empty_item">None</string>
+  <string name="empty_timetable">No timetable</string>
   <string name="hour_format_am">%d:00 AM</string>
   <string name="hour_format_pm">%d:00 PM</string>
 </resources>

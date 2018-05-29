@@ -8,7 +8,6 @@ import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +29,7 @@ import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.adapter.TrainerTimeTableAdapter;
 import edu.swe.healthcareapplication.view.adapter.UserTimeTableAdapter;
+import edu.swe.healthcareapplication.view.widget.RecyclerViewWithEmptyView;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -39,7 +39,7 @@ public class TimeTableFragment extends Fragment {
 
   private int mDateIndex = 0;
 
-  private RecyclerView mRecyclerView;
+  private RecyclerViewWithEmptyView mRecyclerView;
   private TabLayout mTabLayout;
   private Toolbar mToolbar;
 
@@ -80,6 +80,7 @@ public class TimeTableFragment extends Fragment {
 //      }
 //    });
 
+    mRecyclerView.setEmptyView(rootView.findViewById(R.id.empty_timetable));
     mRecyclerView.setHasFixedSize(true);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
     String[] dateStrings = getResources().getStringArray(R.array.date);
