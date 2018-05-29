@@ -14,8 +14,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,7 +28,8 @@ import edu.swe.healthcareapplication.model.TimeTable;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
-import edu.swe.healthcareapplication.util.Utils;
+import edu.swe.healthcareapplication.view.adapter.TrainerTimeTableAdapter;
+import edu.swe.healthcareapplication.view.adapter.UserTimeTableAdapter;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -158,22 +157,8 @@ public class TimeTableFragment extends Fragment {
         .setLifecycleOwner(this)
         .build();
 
-    FirebaseRecyclerAdapter<TimeTable, TrainerTimeTableHolder> adapter = new FirebaseRecyclerAdapter<TimeTable, TrainerTimeTableHolder>(
-        options) {
-      @NonNull
-      @Override
-      public TrainerTimeTableHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_timetable, parent, false);
-        return new TrainerTimeTableHolder(view);
-      }
-
-      @Override
-      protected void onBindViewHolder(@NonNull TrainerTimeTableHolder holder, int position,
-          @NonNull TimeTable model) {
-        holder.timeView.setText(Utils.formatHour(getContext(), model.startTime));
-      }
-    };
+    TrainerTimeTableAdapter adapter = new TrainerTimeTableAdapter(getContext(),
+        options);
     mRecyclerView.setAdapter(adapter);
   }
 
@@ -221,42 +206,7 @@ public class TimeTableFragment extends Fragment {
         .setLifecycleOwner(this)
         .build();
 
-    FirebaseRecyclerAdapter<TimeTable, UserTimeTableHolder> adapter = new FirebaseRecyclerAdapter<TimeTable, UserTimeTableHolder>(
-        options) {
-      @NonNull
-      @Override
-      public UserTimeTableHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.item_timetable, parent, false);
-        return new UserTimeTableHolder(view);
-      }
-
-      @Override
-      protected void onBindViewHolder(@NonNull UserTimeTableHolder holder, int position,
-          @NonNull TimeTable model) {
-        holder.timeView.setText(Utils.formatHour(getContext(), model.startTime));
-      }
-    };
+    UserTimeTableAdapter adapter = new UserTimeTableAdapter(getContext(), options);
     mRecyclerView.setAdapter(adapter);
-  }
-
-  public class TrainerTimeTableHolder extends RecyclerView.ViewHolder {
-
-    public TextView timeView;
-
-    public TrainerTimeTableHolder(@NonNull View itemView) {
-      super(itemView);
-      timeView = itemView.findViewById(R.id.tv_time);
-    }
-  }
-
-  public class UserTimeTableHolder extends RecyclerView.ViewHolder {
-
-    public TextView timeView;
-
-    public UserTimeTableHolder(@NonNull View itemView) {
-      super(itemView);
-      timeView = itemView.findViewById(R.id.tv_time);
-    }
   }
 }
