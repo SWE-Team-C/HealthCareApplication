@@ -12,7 +12,6 @@ import android.support.design.widget.TabLayout.OnTabSelectedListener;
 import android.support.design.widget.TabLayout.Tab;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -34,6 +33,7 @@ import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.adapter.SelectTimeAdapter;
+import edu.swe.healthcareapplication.view.widget.RecyclerViewWithEmptyView;
 import java.util.List;
 
 public class SelectTimeActivity extends AppCompatActivity {
@@ -46,7 +46,7 @@ public class SelectTimeActivity extends AppCompatActivity {
 
   private Toolbar mToolbar;
   private TabLayout mTabLayout;
-  private RecyclerView mTimetableList;
+  private RecyclerViewWithEmptyView mTimetableList;
   private FloatingActionButton mFab;
   private CoordinatorLayout mCoordinatorLayout;
 
@@ -98,6 +98,7 @@ public class SelectTimeActivity extends AppCompatActivity {
     mToolbar = findViewById(R.id.toolbar);
     mTabLayout = findViewById(R.id.tab_layout);
     mTimetableList = findViewById(R.id.timetable_list);
+    mTimetableList.setEmptyView(findViewById(R.id.empty_timetable));
     mFab = findViewById(R.id.fab);
     mCoordinatorLayout = findViewById(R.id.coordinator_layout);
 
