@@ -37,61 +37,61 @@
       app:layout_constraintRight_toRightOf="parent"/>
 
     <TextView
-      android:id="@+id/tv_item1_desc"
+      android:id="@+id/tv_name_desc"
       android:textStyle="bold"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_normal"
-      tools:text="Name"
+      android:text="@string/hint_name"
       android:textColor="@color/colorAccent"
       app:layout_constraintTop_toBottomOf="@+id/iv_profile"/>
 
     <TextView
-      android:id="@+id/tv_item1"
+      android:id="@+id/tv_name"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_small"
       android:textSize="16sp"
-      app:layout_constraintTop_toBottomOf="@+id/tv_item1_desc"
+      app:layout_constraintTop_toBottomOf="@+id/tv_name_desc"
       tools:text="OOO"/>
 
     <TextView
-      android:id="@+id/tv_item2_desc"
+      android:id="@+id/tv_education_desc"
       android:textStyle="bold"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_normal"
-      tools:text="Age"
+      android:text="@string/hint_education"
       android:textColor="@color/colorAccent"
-      app:layout_constraintTop_toBottomOf="@+id/tv_item1"/>
+      app:layout_constraintTop_toBottomOf="@+id/tv_name"/>
 
     <TextView
-      android:id="@+id/tv_item2"
+      android:id="@+id/tv_education"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_small"
       android:textSize="16sp"
-      app:layout_constraintTop_toBottomOf="@+id/tv_item2_desc"
+      app:layout_constraintTop_toBottomOf="@+id/tv_education_desc"
       tools:text="OOO"/>
 
     <TextView
-      android:id="@+id/tv_item3_desc"
+      android:id="@+id/tv_awards_desc"
       android:textStyle="bold"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_normal"
-      tools:text="Gender"
+      android:text="@string/hint_awards"
       android:textColor="@color/colorAccent"
-      app:layout_constraintTop_toBottomOf="@+id/tv_item2"/>
+      app:layout_constraintTop_toBottomOf="@+id/tv_education"/>
 
     <TextView
-      android:id="@+id/tv_item3"
+      android:id="@+id/tv_awards"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_small"
       android:textSize="16sp"
       android:lineSpacingExtra="8dp"
-      app:layout_constraintTop_toBottomOf="@+id/tv_item3_desc"
+      app:layout_constraintTop_toBottomOf="@+id/tv_awards_desc"
       tools:text="OOO"/>
 
   </android.support.constraint.ConstraintLayout>

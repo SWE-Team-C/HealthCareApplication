@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <android.support.design.widget.AppBarLayout
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.Toolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+      app:title="@string/action_profile"
+      app:titleTextColor="@android:color/white"/>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <android.support.constraint.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/keyline_normal"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <ImageView
+      android:id="@+id/iv_profile"
+      android:layout_width="96dp"
+      android:layout_height="96dp"
+      android:layout_marginTop="@dimen/keyline_normal"
+      android:alpha="0.4"
+      android:src="@drawable/ic_account_circle_black_24dp"
+      app:layout_constraintLeft_toLeftOf="parent"
+      app:layout_constraintRight_toRightOf="parent"/>
+
+    <TextView
+      android:id="@+id/tv_name_desc"
+      android:textStyle="bold"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/keyline_normal"
+      android:text="@string/hint_name"
+      android:textColor="@color/colorAccent"
+      app:layout_constraintTop_toBottomOf="@+id/iv_profile"/>
+
+    <TextView
+      android:id="@+id/tv_name"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/keyline_small"
+      android:textSize="16sp"
+      app:layout_constraintTop_toBottomOf="@+id/tv_name_desc"
+      tools:text="OOO"/>
+
+    <TextView
+      android:id="@+id/tv_age_desc"
+      android:textStyle="bold"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/keyline_normal"
+      android:text="@string/hint_age"
+      android:textColor="@color/colorAccent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_name"/>
+
+    <TextView
+      android:id="@+id/tv_age"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/keyline_small"
+      android:textSize="16sp"
+      app:layout_constraintTop_toBottomOf="@+id/tv_age_desc"
+      tools:text="OOO"/>
+
+    <TextView
+      android:id="@+id/tv_gender_desc"
+      android:textStyle="bold"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/keyline_normal"
+      android:text="@string/hint_gender"
+      android:textColor="@color/colorAccent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_age"/>
+
+    <TextView
+      android:id="@+id/tv_gender"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/keyline_small"
+      android:lineSpacingExtra="8dp"
+      android:textSize="16sp"
+      app:layout_constraintTop_toBottomOf="@+id/tv_gender_desc"
+      tools:text="OOO"/>
+
+  </android.support.constraint.ConstraintLayout>
+
+  <android.support.design.widget.FloatingActionButton
+    android:id="@+id/fab"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:layout_gravity="bottom|right"
+    android:src="@drawable/ic_edit_white_24dp"
+    app:fabSize="normal"/>
+
+</android.support.design.widget.CoordinatorLayout>

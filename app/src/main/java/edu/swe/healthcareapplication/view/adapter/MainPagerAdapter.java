@@ -5,8 +5,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.view.fragment.ChatFragment;
-import edu.swe.healthcareapplication.view.fragment.ProfileFragment;
 import edu.swe.healthcareapplication.view.fragment.TimeTableFragment;
+import edu.swe.healthcareapplication.view.fragment.TrainerProfileFragment;
+import edu.swe.healthcareapplication.view.fragment.UserProfileFragment;
 
 public class MainPagerAdapter extends FragmentStatePagerAdapter {
 
@@ -20,7 +21,11 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
   @Override
   public Fragment getItem(int position) {
     if (position == 0) {
-      return ProfileFragment.newInstance(mUserType);
+      if (mUserType == UserType.USER) {
+        return new UserProfileFragment();
+      } else if (mUserType == UserType.TRAINER) {
+        return new TrainerProfileFragment();
+      }
     } else if (position == 1) {
       return TimeTableFragment.newInstance(mUserType);
     } else if (position == 2) {
