@@ -53,6 +53,11 @@ public class AwardAdapter extends RecyclerView.Adapter<AwardHolder> {
     notifyItemInserted(mAwardList.size());
   }
 
+  public void clearAward() {
+    mAwardList.clear();
+    notifyDataSetChanged();
+  }
+
   public class AwardHolder extends ViewHolder {
 
     public TextView awardView;

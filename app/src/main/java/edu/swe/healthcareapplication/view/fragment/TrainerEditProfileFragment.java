@@ -94,6 +94,7 @@ public class TrainerEditProfileFragment extends Fragment {
           mEditEducation.setText(trainer.education);
 
           if (!trainer.awards.isEmpty()) {
+            mAdapter.clearAward();
             for (String award : trainer.awards) {
               mAdapter.addAward(award);
             }
