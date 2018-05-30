@@ -9,6 +9,7 @@
   <string name="activity_select_time_name">시간 선택</string>
   <string name="activity_edit_profile">프로필 수정</string>
   <string name="activity_edit_timetable">시간표 수정</string>
+  <string name="activity_user_manage">회원 관리</string>
   <!-- Action -->
   <string name="action_select_complete">선택 완료</string>
   <string name="action_profile">프로필</string>
@@ -16,6 +17,8 @@
   <string name="action_chat">대화</string>
   <string name="action_complete">완료</string>
   <string name="action_edit_timetable">시간표 수정</string>
+  <string name="action_edit_profile">프로필 수정</string>
+  <string name="action_user_manage">회원 관리</string>
   <!-- Type -->
   <string name="type_user">사용자</string>
   <string name="type_trainer">트레이너</string>
@@ -28,6 +31,10 @@
   <string name="hint_awards">수상경력</string>
   <string name="hint_gender">성별</string>
   <string name="hint_time">시간</string>
+  <string name="hint_height">키 (cm)</string>
+  <string name="hint_weight">체중 (kg)</string>
+  <string name="hint_body_fat">체지방량 (kg)</string>
+  <string name="hint_skeletal_muscle">골격근량 (kg)</string>
   <!-- Message -->
   <string name="msg_login_cancelled">로그인이 취소되었습니다</string>
   <string name="msg_login_no_connection">인터넷에 연결되지 않았습니다</string>
@@ -37,9 +44,17 @@
   <string name="msg_profile_saved">프로필이 저장되었습니다</string>
   <string name="msg_profile_save_failed">프로필 저장을 실패했습니다</string>
   <string name="msg_timetable_exist_time">이미 추가된 시간입니다</string>
+  <string name="msg_user_extra_empty">비어있는 필드가 존재합니다</string>
+  <string name="msg_user_extra_saved">회원 정보가 저장되었습니다</string>
+  <string name="msg_user_extra_failed">회원 정보 저장에 실패하였습니다</string>
   <!-- Etc -->
   <string name="empty_item">없음</string>
   <string name="empty_timetable">시간표가 없습니다</string>
+  <string name="empty_user">선택한 회원이 없습니다</string>
+  <string name="empty_last_modified">없음</string>
+  <string name="empty_user_extra">트레이너가 정보를 입력하지 않았습니다</string>
   <string name="hour_format_am">오전 %d:00</string>
   <string name="hour_format_pm">오후 %d:00</string>
+  <string name="timestamp_format">YYYY. MM. dd.</string>
+  <string name="last_modified_format">마지막 수정 : %s</string>
 </resources>

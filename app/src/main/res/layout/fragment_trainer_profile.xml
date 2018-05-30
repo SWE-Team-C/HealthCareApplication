@@ -89,20 +89,34 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_small"
-      android:textSize="16sp"
       android:lineSpacingExtra="8dp"
+      android:textSize="16sp"
       app:layout_constraintTop_toBottomOf="@+id/tv_awards_desc"
       tools:text="OOO"/>
 
-  </android.support.constraint.ConstraintLayout>
+    <android.support.design.button.MaterialButton
+      android:id="@+id/btn_user_manage"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/keyline_mini"
+      android:text="@string/action_user_manage"
+      app:icon="@drawable/ic_group_white_24dp"
+      app:iconPadding="@dimen/keyline_small"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintRight_toLeftOf="@+id/btn_edit_profile"/>
 
-  <android.support.design.widget.FloatingActionButton
-    android:id="@+id/fab"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="16dp"
-    android:layout_gravity="bottom|right"
-    android:src="@drawable/ic_edit_white_24dp"
-    app:fabSize="normal"/>
+    <android.support.design.button.MaterialButton
+      android:id="@+id/btn_edit_profile"
+      style="@style/Widget.MaterialComponents.Button.TextButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/action_edit_profile"
+      app:icon="@drawable/ic_edit_white_24dp"
+      app:iconPadding="@dimen/keyline_small"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintRight_toRightOf="parent"/>
+
+  </android.support.constraint.ConstraintLayout>
 
 </android.support.design.widget.CoordinatorLayout>

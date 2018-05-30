@@ -48,6 +48,10 @@
       android:label="@string/activity_edit_profile"
       android:name=".view.EditProfileActivity"
       android:windowSoftInputMode="stateHidden"/>
+    <activity
+      android:label="@string/action_user_manage"
+      android:name=".view.UserManageActivity"/>
+    <activity android:name=".view.UserDetailActivity"/>
   </application>
 
 </manifest>

@@ -19,12 +19,27 @@
 
   <style name="List"/>
 
+  <style name="List.SingleLine" />
+
+  <style name="List.SingleLine.Layout">
+    <item name="android:background">?attr/selectableItemBackground</item>
+    <item name="android:height">56dp</item>
+    <item name="android:paddingTop">@dimen/keyline_small</item>
+    <item name="android:paddingBottom">@dimen/keyline_small</item>
+    <item name="android:paddingLeft">@dimen/keyline_normal</item>
+    <item name="android:paddingRight">@dimen/keyline_normal</item>
+  </style>
+
+  <style name="List.SingleLine.TitleText">
+    <item name="android:textSize">16sp</item>
+  </style>
+
   <style name="List.TwoLine"/>
 
   <style name="List.TwoLine.Layout">
     <item name="android:background">?attr/selectableItemBackground</item>
     <item name="android:height">72dp</item>
-    <item name="android:padding">16dp</item>
+    <item name="android:padding">@dimen/keyline_normal</item>
   </style>
 
   <style name="List.TwoLine.TitleText">

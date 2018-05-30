@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -23,6 +23,7 @@ import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.EditProfileActivity;
+import edu.swe.healthcareapplication.view.UserManageActivity;
 
 public class TrainerProfileFragment extends Fragment {
 
@@ -31,7 +32,8 @@ public class TrainerProfileFragment extends Fragment {
   private TextView mNameView;
   private TextView mEducationView;
   private TextView mAwardsView;
-  private FloatingActionButton mFab;
+  private Button mBtnEditProfile;
+  private Button mBtnUserManage;
 
   @Nullable
   @Override
@@ -41,10 +43,17 @@ public class TrainerProfileFragment extends Fragment {
     mNameView = rootView.findViewById(R.id.tv_name);
     mEducationView = rootView.findViewById(R.id.tv_education);
     mAwardsView = rootView.findViewById(R.id.tv_awards);
-    mFab = rootView.findViewById(R.id.fab);
-    mFab.setOnClickListener(view -> {
+    mBtnEditProfile = rootView.findViewById(R.id.btn_edit_profile);
+    mBtnUserManage = rootView.findViewById(R.id.btn_user_manage);
+
+    mBtnEditProfile.setOnClickListener(view -> {
       Intent intent = new Intent(getActivity(), EditProfileActivity.class);
       intent.putExtra(BundleConstants.BUNDLE_USER_TYPE, UserType.TRAINER);
+      startActivity(intent);
+    });
+
+    mBtnUserManage.setOnClickListener(view -> {
+      Intent intent = new Intent(getActivity(), UserManageActivity.class);
       startActivity(intent);
     });
     return rootView;

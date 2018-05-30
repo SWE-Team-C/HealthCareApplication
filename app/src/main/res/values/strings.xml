@@ -8,6 +8,7 @@
   <string name="activity_select_time_name">Select Time</string>
   <string name="activity_edit_profile">Edit Profile</string>
   <string name="activity_edit_timetable">Edit TimeTable</string>
+  <string name="activity_user_manage">User Manage</string>
   <!-- Action -->
   <string name="action_select_complete">Select Complete</string>
   <string name="action_profile">Profile</string>
@@ -15,6 +16,8 @@
   <string name="action_chat">Chat</string>
   <string name="action_complete">Complete</string>
   <string name="action_edit_timetable">Edit timetable</string>
+  <string name="action_edit_profile">Edit Profile</string>
+  <string name="action_user_manage">User Manage</string>
   <!-- Type -->
   <string name="type_user">User</string>
   <string name="type_trainer">Trainer</string>
@@ -27,6 +30,10 @@
   <string name="hint_awards">Awards</string>
   <string name="hint_gender">Gender</string>
   <string name="hint_time">Time</string>
+  <string name="hint_height">Height (cm)</string>
+  <string name="hint_weight">Weight (kg)</string>
+  <string name="hint_body_fat">Body Fat Mass (kg)</string>
+  <string name="hint_skeletal_muscle">Skeletal Muscle Mass (kg)</string>
   <!-- Message -->
   <string name="msg_login_cancelled">Login Cancelled</string>
   <string name="msg_login_no_connection">No internet connection</string>
@@ -36,9 +43,17 @@
   <string name="msg_profile_saved">Saved profile</string>
   <string name="msg_profile_save_failed">Failed save profile</string>
   <string name="msg_timetable_exist_time">Exist time</string>
+  <string name="msg_user_extra_empty">Exists empty field</string>
+  <string name="msg_user_extra_saved">Saved user info</string>
+  <string name="msg_user_extra_failed">Failed user info</string>
   <!-- Etc -->
   <string name="empty_item">None</string>
   <string name="empty_timetable">No timetable</string>
+  <string name="empty_user">No selected user</string>
+  <string name="empty_last_modified">None</string>
+  <string name="empty_user_extra">No input information by trainer</string>
   <string name="hour_format_am">%d:00 AM</string>
   <string name="hour_format_pm">%d:00 PM</string>
+  <string name="timestamp_format">YYYY. MM. dd.</string>
+  <string name="last_modified_format">Last modified : %s</string>
 </resources>

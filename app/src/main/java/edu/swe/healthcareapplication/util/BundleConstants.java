@@ -12,4 +12,6 @@ public class BundleConstants {
 
   public static final String BUNDLE_STEP_POSITION = "bundle_step_position";
 
+  public static final String BUNDLE_USER_ID = "bundle_user_id";
+
 }

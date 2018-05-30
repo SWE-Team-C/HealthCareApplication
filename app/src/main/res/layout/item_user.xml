@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  style="@style/List.SingleLine.Layout"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:orientation="horizontal">
+
+  <ImageView
+    android:id="@+id/iv_profile"
+    android:layout_width="40dp"
+    android:layout_height="40dp"
+    android:alpha="0.4"
+    android:src="@drawable/ic_account_circle_black_24dp"/>
+
+  <TextView
+    android:id="@+id/tv_user_name"
+    style="@style/List.SingleLine.TitleText"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:textColor="#000000"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintLeft_toRightOf="@+id/iv_profile"
+    app:layout_constraintRight_toRightOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Test"/>
+
+</android.support.constraint.ConstraintLayout>

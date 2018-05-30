@@ -40,6 +40,7 @@ public class UserEditProfileFragment extends Fragment {
     mEditName = rootView.findViewById(R.id.edit_name);
     mEditAge = rootView.findViewById(R.id.edit_age);
     mEditGender = rootView.findViewById(R.id.edit_gender);
+    mFab = rootView.findViewById(R.id.fab);
 
     mFab.setOnClickListener(v -> writeProfile());
     return rootView;
