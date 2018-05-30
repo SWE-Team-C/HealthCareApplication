@@ -138,7 +138,7 @@ public class UserProfileFragment extends Fragment {
                   getString(R.string.empty_last_modified));
           mLastModifiedView.setText(lastModified);
           mEmptyUserExtraView.setVisibility(View.VISIBLE);
-          setVisibilityUserExtraViews(View.GONE);
+          setVisibilityUserExtraViews(View.INVISIBLE);
         }
       }
 
@@ -158,6 +158,7 @@ public class UserProfileFragment extends Fragment {
     mBodyFatView.setVisibility(visibility);
     mSkeletalMuscleDescView.setVisibility(visibility);
     mSkeletalMuscleView.setVisibility(visibility);
+    mLastModifiedView.setVisibility(visibility);
   }
 
   @NonNull
