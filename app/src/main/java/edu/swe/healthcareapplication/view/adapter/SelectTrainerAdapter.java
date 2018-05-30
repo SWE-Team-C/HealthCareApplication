@@ -42,8 +42,12 @@ public class SelectTrainerAdapter extends FirebaseRecyclerAdapter<Trainer, ViewH
   protected void onBindViewHolder(@NonNull ViewHolder holder, int position,
       @NonNull Trainer model) {
     holder.nameView.setText(model.name);
-    holder.educationView.setText(mContext.getString(R.string.hint_education) + " : " + model.education);
-    holder.awardsView.setText(mContext.getString(R.string.hint_awards) + " : " + model.awards.get(0));
+    holder.educationView
+        .setText(mContext.getString(R.string.hint_education) + " : " + model.education);
+    if (model.awards != null) {
+      holder.awardsView
+          .setText(mContext.getString(R.string.hint_awards) + " : " + model.awards.get(0));
+    }
     holder.itemView.setOnClickListener(v -> {
       if (mListener != null) {
         mListener.onItemSelected(getRef(position).getKey());

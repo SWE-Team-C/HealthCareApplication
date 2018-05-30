@@ -70,7 +70,7 @@ public class TrainerProfileFragment extends Fragment {
         if (trainer != null) {
           mNameView.setText(trainer.name);
           mEducationView.setText(trainer.education);
-          if (trainer.awards.isEmpty()) {
+          if (trainer.awards == null) {
             mAwardsView.setText(R.string.empty_item);
           } else {
             mAwardsView.setText("");

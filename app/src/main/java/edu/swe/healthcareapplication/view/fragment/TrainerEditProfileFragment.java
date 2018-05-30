@@ -93,7 +93,7 @@ public class TrainerEditProfileFragment extends Fragment {
           mEditName.setText(trainer.name);
           mEditEducation.setText(trainer.education);
 
-          if (!trainer.awards.isEmpty()) {
+          if (trainer.awards != null && !trainer.awards.isEmpty()) {
             mAdapter.clearAward();
             for (String award : trainer.awards) {
               mAdapter.addAward(award);
@@ -126,10 +126,6 @@ public class TrainerEditProfileFragment extends Fragment {
 
     if (TextUtils.isEmpty(education)) {
       return;
-    }
-
-    if (awards.isEmpty()) {
-      awards.add(getString(R.string.empty_item));
     }
 
     Trainer trainer = new Trainer(name, education, awards);

@@ -122,9 +122,6 @@ public class TrainerStepFragment extends Fragment {
           }
           if (!TextUtils.isEmpty(education)) {
             List<String> awards = mAwardAdapter.getAwardList();
-            if (awards.size() == 0) {
-              awards.add(getString(R.string.empty_item));
-            }
             dataManager.saveData("education", education);
             dataManager.saveData("awards", awards);
             writeDatabase(dataManager.getAllData());
