@@ -1,5 +1,6 @@
 package edu.swe.healthcareapplication.view.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -38,15 +39,25 @@ public class SelectTrainerAdapter extends FirebaseRecyclerAdapter<Trainer, ViewH
     return new ViewHolder(view);
   }
 
+  @SuppressLint("SetTextI18n")
   @Override
   protected void onBindViewHolder(@NonNull ViewHolder holder, int position,
       @NonNull Trainer model) {
     holder.nameView.setText(model.name);
     holder.educationView
         .setText(mContext.getString(R.string.hint_education) + " : " + model.education);
+    String awardsPrefix = mContext.getString(R.string.hint_awards) + " : ";
     if (model.awards != null) {
-      holder.awardsView
-          .setText(mContext.getString(R.string.hint_awards) + " : " + model.awards.get(0));
+      StringBuilder awardsString = new StringBuilder(model.awards.get(0));
+      if (model.awards.size() > 1) {
+        for (int index = 1; index < model.awards.size(); index++) {
+          String award = model.awards.get(index);
+          awardsString.append(", ").append(award);
+        }
+      }
+      holder.awardsView.setText(awardsPrefix + awardsString.toString());
+    } else {
+      holder.awardsView.setText(awardsPrefix + mContext.getString(R.string.empty_item));
     }
     holder.itemView.setOnClickListener(v -> {
       if (mListener != null) {
