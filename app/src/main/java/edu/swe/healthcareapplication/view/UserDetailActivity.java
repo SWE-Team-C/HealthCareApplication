@@ -140,8 +140,8 @@ public class UserDetailActivity extends AppCompatActivity {
     String bodyFat = mEditBodyFat.getText().toString();
     String skeletalMuscle = mEditSkeletalMuscle.getText().toString();
 
-    if (TextUtils.isEmpty(height) &&
-        TextUtils.isEmpty(weight) && TextUtils.isEmpty(bodyFat) && TextUtils
+    if (TextUtils.isEmpty(height) ||
+        TextUtils.isEmpty(weight) || TextUtils.isEmpty(bodyFat) || TextUtils
         .isEmpty(skeletalMuscle)) {
       Toast.makeText(this, R.string.msg_user_extra_empty, Toast.LENGTH_SHORT).show();
       return;
