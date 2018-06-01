@@ -46,6 +46,8 @@
   <string name="msg_user_extra_empty">Exists empty field</string>
   <string name="msg_user_extra_saved">Saved user info</string>
   <string name="msg_user_extra_failed">Failed user info</string>
+  <!-- Notification -->
+  <string name="notification_channel_chats">Chats Notification</string>
   <!-- Etc -->
   <string name="empty_item">None</string>
   <string name="empty_timetable">No timetable</string>

@@ -47,6 +47,8 @@
   <string name="msg_user_extra_empty">비어있는 필드가 존재합니다</string>
   <string name="msg_user_extra_saved">회원 정보가 저장되었습니다</string>
   <string name="msg_user_extra_failed">회원 정보 저장에 실패하였습니다</string>
+  <!-- Notification -->
+  <string name="notification_channel_chats">대화 알림</string>
   <!-- Etc -->
   <string name="empty_item">없음</string>
   <string name="empty_timetable">시간표가 없습니다</string>

@@ -1,16 +1,25 @@
 package edu.swe.healthcareapplication.view;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
+import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.adapter.MainPagerAdapter;
 
 public class MainActivity extends AppCompatActivity {
+
+  private static final String TAG = MainActivity.class.getSimpleName();
 
   private ViewPager mViewPager;
   private BottomNavigationView mBottomNavigationView;
@@ -25,6 +34,12 @@ public class MainActivity extends AppCompatActivity {
       userType = (UserType) bundle.getSerializable(BundleConstants.BUNDLE_USER_TYPE);
     }
     initView(userType);
+  }
+
+  @Override
+  protected void onStart() {
+    super.onStart();
+    registerToken();
   }
 
   private void initView(UserType userType) {
@@ -72,5 +87,26 @@ public class MainActivity extends AppCompatActivity {
             return false;
           }
         });
+  }
+
+  private void registerToken() {
+    String token = FirebaseInstanceId.getInstance().getToken();
+    Log.d(TAG, "Register Token: " + token);
+    String uid = fetchUid();
+    if (uid != null) {
+      FirebaseDatabase.getInstance().getReference()
+          .child(DatabaseConstants.CHILD_FCM_TOKEN)
+          .child(uid)
+          .setValue(token);
+    }
+  }
+
+  @Nullable
+  private String fetchUid() {
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    if (currentUser != null) {
+      return currentUser.getUid();
+    }
+    return null;
   }
 }

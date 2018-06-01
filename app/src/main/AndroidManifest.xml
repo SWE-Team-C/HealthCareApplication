@@ -52,6 +52,19 @@
       android:label="@string/action_user_manage"
       android:name=".view.UserManageActivity"/>
     <activity android:name=".view.UserDetailActivity"/>
+
+    <service
+      android:name=".service.ChatNotificationService">
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+      </intent-filter>
+    </service>
+    <service
+      android:name=".service.ChatInstanceIdService">
+      <intent-filter>
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+      </intent-filter>
+    </service>
   </application>
 
 </manifest>

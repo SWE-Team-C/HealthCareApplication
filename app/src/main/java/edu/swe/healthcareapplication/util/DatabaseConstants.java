@@ -16,6 +16,8 @@ public class DatabaseConstants {
 
   public static final String CHILD_CHATS = "chats";
 
+  public static final String CHILD_FCM_TOKEN = "fcm_token";
+
   public static final String USER_TYPE_USER = "user";
 
   public static final String USER_TYPE_TRAINER = "trainer";
