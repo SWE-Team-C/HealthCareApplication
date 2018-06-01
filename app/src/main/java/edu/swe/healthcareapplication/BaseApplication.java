@@ -17,12 +17,12 @@ public class BaseApplication extends Application implements ActivityLifecycleCal
 
   @Override
   public void onActivityCreated(Activity activity, Bundle bundle) {
-    isBackground = false;
+    // No-op
   }
 
   @Override
   public void onActivityStarted(Activity activity) {
-    // No-op
+    isBackground = false;
   }
 
   @Override
