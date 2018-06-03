@@ -1,5 +1,6 @@
 package edu.swe.healthcareapplication.view.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -27,6 +28,7 @@ import edu.swe.healthcareapplication.model.TimeTable;
 import edu.swe.healthcareapplication.model.UserType;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
+import edu.swe.healthcareapplication.view.EditTimeActivity;
 import edu.swe.healthcareapplication.view.adapter.TrainerTimeTableAdapter;
 import edu.swe.healthcareapplication.view.adapter.UserTimeTableAdapter;
 import edu.swe.healthcareapplication.view.widget.RecyclerViewWithEmptyView;
@@ -72,13 +74,17 @@ public class TimeTableFragment extends Fragment {
     mRecyclerView = rootView.findViewById(R.id.timetable_list);
     mTabLayout = rootView.findViewById(R.id.tab_layout);
     mToolbar = rootView.findViewById(R.id.toolbar);
-//    mToolbar.inflateMenu(R.menu.menu_timetable);
-//    mToolbar.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-//      @Override
-//      public boolean onMenuItemClick(MenuItem item) {
-//        return false;
-//      }
-//    });
+    if (mUserType == UserType.TRAINER) {
+      mToolbar.inflateMenu(R.menu.menu_timetable);
+      mToolbar.setOnMenuItemClickListener(item -> {
+        if (item.getItemId() == R.id.action_edit_timetable) {
+          Intent intent = new Intent(getActivity(), EditTimeActivity.class);
+          startActivity(intent);
+          return true;
+        }
+        return false;
+      });
+    }
 
     mRecyclerView.setEmptyView(rootView.findViewById(R.id.empty_timetable));
     mRecyclerView.setHasFixedSize(true);
