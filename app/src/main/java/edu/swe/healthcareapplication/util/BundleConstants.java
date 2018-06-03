@@ -14,4 +14,6 @@ public class BundleConstants {
 
   public static final String BUNDLE_USER_ID = "bundle_user_id";
 
+  public static final String BUNDLE_FROM_MAIN = "bundle_from_main";
+
 }

@@ -49,10 +49,16 @@ public class EditTimeActivity extends AppCompatActivity {
   private EditText mEditTime;
   private ImageButton mBtnAddTime;
 
+  private boolean mIsFromMain = false;
+
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_edit_time);
+    Bundle bundle = getIntent().getExtras();
+    if (bundle != null) {
+      mIsFromMain = bundle.getBoolean(BundleConstants.BUNDLE_FROM_MAIN);
+    }
     mFirebaseAuth = FirebaseAuth.getInstance();
     mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
     initView();
@@ -185,9 +191,11 @@ public class EditTimeActivity extends AppCompatActivity {
   }
 
   private void navigateMain() {
-    Intent intent = new Intent(this, MainActivity.class);
-    intent.putExtra(BundleConstants.BUNDLE_USER_TYPE, UserType.TRAINER);
-    startActivity(intent);
+    if (!mIsFromMain) {
+      Intent intent = new Intent(this, MainActivity.class);
+      intent.putExtra(BundleConstants.BUNDLE_USER_TYPE, UserType.TRAINER);
+      startActivity(intent);
+    }
     finish();
   }
 }

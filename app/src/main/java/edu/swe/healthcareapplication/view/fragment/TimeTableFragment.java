@@ -79,6 +79,7 @@ public class TimeTableFragment extends Fragment {
       mToolbar.setOnMenuItemClickListener(item -> {
         if (item.getItemId() == R.id.action_edit_timetable) {
           Intent intent = new Intent(getActivity(), EditTimeActivity.class);
+          intent.putExtra(BundleConstants.BUNDLE_FROM_MAIN, true);
           startActivity(intent);
           return true;
         }
