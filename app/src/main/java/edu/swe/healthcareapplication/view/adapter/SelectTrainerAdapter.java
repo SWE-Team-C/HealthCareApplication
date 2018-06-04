@@ -46,18 +46,18 @@ public class SelectTrainerAdapter extends FirebaseRecyclerAdapter<Trainer, ViewH
     holder.nameView.setText(model.name);
     holder.educationView
         .setText(mContext.getString(R.string.hint_education) + " : " + model.education);
-    String awardsPrefix = mContext.getString(R.string.hint_awards) + " : ";
-    if (model.awards != null) {
-      StringBuilder awardsString = new StringBuilder(model.awards.get(0));
-      if (model.awards.size() > 1) {
-        for (int index = 1; index < model.awards.size(); index++) {
-          String award = model.awards.get(index);
+    String awardsPrefix = mContext.getString(R.string.hint_certificate) + " : ";
+    if (model.certificates != null) {
+      StringBuilder awardsString = new StringBuilder(model.certificates.get(0));
+      if (model.certificates.size() > 1) {
+        for (int index = 1; index < model.certificates.size(); index++) {
+          String award = model.certificates.get(index);
           awardsString.append(", ").append(award);
         }
       }
-      holder.awardsView.setText(awardsPrefix + awardsString.toString());
+      holder.certificatesView.setText(awardsPrefix + awardsString.toString());
     } else {
-      holder.awardsView.setText(awardsPrefix + mContext.getString(R.string.empty_item));
+      holder.certificatesView.setText(awardsPrefix + mContext.getString(R.string.empty_item));
     }
     holder.itemView.setOnClickListener(v -> {
       if (mListener != null) {
@@ -76,13 +76,13 @@ public class SelectTrainerAdapter extends FirebaseRecyclerAdapter<Trainer, ViewH
 
     public TextView nameView;
     public TextView educationView;
-    public TextView awardsView;
+    public TextView certificatesView;
 
     public ViewHolder(View itemView) {
       super(itemView);
       nameView = itemView.findViewById(R.id.tv_name);
       educationView = itemView.findViewById(R.id.tv_education);
-      awardsView = itemView.findViewById(R.id.tv_awards);
+      certificatesView = itemView.findViewById(R.id.tv_certificates);
     }
   }
 }

@@ -28,7 +28,7 @@ import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.util.step.DataManager;
 import edu.swe.healthcareapplication.util.step.Navigator;
-import edu.swe.healthcareapplication.view.adapter.AwardAdapter;
+import edu.swe.healthcareapplication.view.adapter.CertificateAdapter;
 import java.util.List;
 import java.util.Map;
 
@@ -42,10 +42,10 @@ public class TrainerStepFragment extends Fragment {
   private Button mBtnOk;
 
   private EditText mEditEducation;
-  private EditText mEditAwards;
-  private RecyclerView mAwardList;
-  private ImageButton mBtnAddAward;
-  private AwardAdapter mAwardAdapter;
+  private EditText mEditCertificates;
+  private RecyclerView mCertificateList;
+  private ImageButton mBtnAddCertificate;
+  private CertificateAdapter mCertificateAdapter;
 
   public static TrainerStepFragment newInstance(int stepPosition) {
     TrainerStepFragment fragment = new TrainerStepFragment();
@@ -92,22 +92,22 @@ public class TrainerStepFragment extends Fragment {
     } else if (mStepPosition == 1) {
       rootView = inflater.inflate(R.layout.step_trainer_02, container, false);
       mEditEducation = rootView.findViewById(R.id.edit_education);
-      mEditAwards = rootView.findViewById(R.id.edit_awards);
-      mAwardList = rootView.findViewById(R.id.awards_list);
-      mBtnAddAward = rootView.findViewById(R.id.btn_add_award);
+      mEditCertificates = rootView.findViewById(R.id.edit_certificate);
+      mCertificateList = rootView.findViewById(R.id.certificate_list);
+      mBtnAddCertificate = rootView.findViewById(R.id.btn_add_certificate);
       mBtnOk = rootView.findViewById(R.id.btn_ok);
 
-      mAwardList.setLayoutManager(new LinearLayoutManager(getActivity()));
-      mAwardList.setHasFixedSize(true);
+      mCertificateList.setLayoutManager(new LinearLayoutManager(getActivity()));
+      mCertificateList.setHasFixedSize(true);
 
-      mAwardAdapter = new AwardAdapter();
-      mAwardList.setAdapter(mAwardAdapter);
+      mCertificateAdapter = new CertificateAdapter();
+      mCertificateList.setAdapter(mCertificateAdapter);
 
-      mBtnAddAward.setOnClickListener(v -> {
-        String award = mEditAwards.getText().toString();
+      mBtnAddCertificate.setOnClickListener(v -> {
+        String award = mEditCertificates.getText().toString();
         if (!TextUtils.isEmpty(award)) {
-          mAwardAdapter.addAward(award);
-          mEditAwards.setText("");
+          mCertificateAdapter.addCertificate(award);
+          mEditCertificates.setText("");
         }
       });
 
@@ -121,9 +121,9 @@ public class TrainerStepFragment extends Fragment {
             // Error message
           }
           if (!TextUtils.isEmpty(education)) {
-            List<String> awards = mAwardAdapter.getAwardList();
+            List<String> awards = mCertificateAdapter.getCertificateList();
             dataManager.saveData("education", education);
-            dataManager.saveData("awards", awards);
+            dataManager.saveData("certificates", awards);
             writeDatabase(dataManager.getAllData());
             navigator.completeStep();
           }
@@ -146,7 +146,7 @@ public class TrainerStepFragment extends Fragment {
   private void writeDatabase(Map<String, Object> trainerData) {
     String name = (String) trainerData.get("name");
     String education = (String) trainerData.get("education");
-    List<String> awards = (List<String>) trainerData.get("awards");
+    List<String> awards = (List<String>) trainerData.get("certificates");
     Trainer trainer = new Trainer(name, education, awards);
 
     FirebaseAuth auth = FirebaseAuth.getInstance();

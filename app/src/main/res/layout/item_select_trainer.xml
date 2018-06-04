@@ -41,7 +41,7 @@
     tools:text="Education: Univ"/>
 
   <TextView
-    android:id="@+id/tv_awards"
+    android:id="@+id/tv_certificates"
     android:layout_width="0dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/keyline_normal"

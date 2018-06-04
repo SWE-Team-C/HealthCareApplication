@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.Trainer;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
-import edu.swe.healthcareapplication.view.adapter.AwardAdapter;
+import edu.swe.healthcareapplication.view.adapter.CertificateAdapter;
 import java.util.List;
 
 public class TrainerEditProfileFragment extends Fragment {
@@ -34,11 +34,11 @@ public class TrainerEditProfileFragment extends Fragment {
 
   private EditText mEditName;
   private EditText mEditEducation;
-  private EditText mEditAward;
-  private ImageButton mBtnAddAward;
-  private RecyclerView mAwardsList;
+  private EditText mEditCertificate;
+  private ImageButton mBtnAddCertificate;
+  private RecyclerView mCertificateList;
   private FloatingActionButton mFab;
-  private AwardAdapter mAdapter;
+  private CertificateAdapter mAdapter;
 
   @Nullable
   @Override
@@ -47,26 +47,26 @@ public class TrainerEditProfileFragment extends Fragment {
     View rootView = inflater.inflate(R.layout.fragment_trainer_edit_profile, container, false);
     mEditName = rootView.findViewById(R.id.edit_name);
     mEditEducation = rootView.findViewById(R.id.edit_education);
-    mEditAward = rootView.findViewById(R.id.edit_awards);
-    mBtnAddAward = rootView.findViewById(R.id.btn_add_award);
-    mAwardsList = rootView.findViewById(R.id.awards_list);
+    mEditCertificate = rootView.findViewById(R.id.edit_certificate);
+    mBtnAddCertificate = rootView.findViewById(R.id.btn_add_certificate);
+    mCertificateList = rootView.findViewById(R.id.certificate_list);
     mFab = rootView.findViewById(R.id.fab);
 
-    mBtnAddAward.setOnClickListener(v -> {
-      String award = mEditAward.getText().toString();
+    mBtnAddCertificate.setOnClickListener(v -> {
+      String award = mEditCertificate.getText().toString();
 
       if (TextUtils.isEmpty(award)) {
         return;
       }
 
-      mAdapter.addAward(award);
-      mEditAward.setText("");
+      mAdapter.addCertificate(award);
+      mEditCertificate.setText("");
     });
 
-    mAwardsList.setHasFixedSize(true);
-    mAwardsList.setLayoutManager(new LinearLayoutManager(getContext()));
-    mAdapter = new AwardAdapter();
-    mAwardsList.setAdapter(mAdapter);
+    mCertificateList.setHasFixedSize(true);
+    mCertificateList.setLayoutManager(new LinearLayoutManager(getContext()));
+    mAdapter = new CertificateAdapter();
+    mCertificateList.setAdapter(mAdapter);
 
     mFab.setOnClickListener(v -> writeProfile());
     return rootView;
@@ -93,10 +93,10 @@ public class TrainerEditProfileFragment extends Fragment {
           mEditName.setText(trainer.name);
           mEditEducation.setText(trainer.education);
 
-          if (trainer.awards != null && !trainer.awards.isEmpty()) {
-            mAdapter.clearAward();
-            for (String award : trainer.awards) {
-              mAdapter.addAward(award);
+          if (trainer.certificates != null && !trainer.certificates.isEmpty()) {
+            mAdapter.clearCertificate();
+            for (String award : trainer.certificates) {
+              mAdapter.addCertificate(award);
             }
           }
         }
@@ -118,7 +118,7 @@ public class TrainerEditProfileFragment extends Fragment {
 
     String name = mEditName.getText().toString();
     String education = mEditEducation.getText().toString();
-    List<String> awards = mAdapter.getAwardList();
+    List<String> awards = mAdapter.getCertificateList();
 
     if (TextUtils.isEmpty(name)) {
       return;

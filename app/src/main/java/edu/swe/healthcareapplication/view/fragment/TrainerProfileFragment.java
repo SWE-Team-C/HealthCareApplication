@@ -31,7 +31,7 @@ public class TrainerProfileFragment extends Fragment {
 
   private TextView mNameView;
   private TextView mEducationView;
-  private TextView mAwardsView;
+  private TextView mCertificatesView;
   private Button mBtnEditProfile;
   private Button mBtnUserManage;
 
@@ -42,7 +42,7 @@ public class TrainerProfileFragment extends Fragment {
     View rootView = inflater.inflate(R.layout.fragment_trainer_profile, container, false);
     mNameView = rootView.findViewById(R.id.tv_name);
     mEducationView = rootView.findViewById(R.id.tv_education);
-    mAwardsView = rootView.findViewById(R.id.tv_awards);
+    mCertificatesView = rootView.findViewById(R.id.tv_certificates);
     mBtnEditProfile = rootView.findViewById(R.id.btn_edit_profile);
     mBtnUserManage = rootView.findViewById(R.id.btn_user_manage);
 
@@ -79,12 +79,12 @@ public class TrainerProfileFragment extends Fragment {
         if (trainer != null) {
           mNameView.setText(trainer.name);
           mEducationView.setText(trainer.education);
-          if (trainer.awards == null) {
-            mAwardsView.setText(R.string.empty_item);
+          if (trainer.certificates == null) {
+            mCertificatesView.setText(R.string.empty_item);
           } else {
-            mAwardsView.setText("");
-            for (String award : trainer.awards) {
-              mAwardsView.append(award + "\n");
+            mCertificatesView.setText("");
+            for (String award : trainer.certificates) {
+              mCertificatesView.append(award + "\n");
             }
           }
         }

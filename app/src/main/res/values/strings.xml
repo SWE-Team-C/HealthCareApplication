@@ -27,7 +27,7 @@
   <string name="hint_name">Name</string>
   <string name="hint_age">Age</string>
   <string name="hint_education">Education</string>
-  <string name="hint_awards">Awards</string>
+  <string name="hint_certificate">Certificate</string>
   <string name="hint_gender">Gender</string>
   <string name="hint_time">Time</string>
   <string name="hint_height">Height (cm)</string>

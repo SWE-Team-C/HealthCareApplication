@@ -75,23 +75,23 @@
       tools:text="OOO"/>
 
     <TextView
-      android:id="@+id/tv_awards_desc"
+      android:id="@+id/tv_certificates_desc"
       android:textStyle="bold"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_normal"
-      android:text="@string/hint_awards"
+      android:text="@string/hint_certificate"
       android:textColor="@color/colorAccent"
       app:layout_constraintTop_toBottomOf="@+id/tv_education"/>
 
     <TextView
-      android:id="@+id/tv_awards"
+      android:id="@+id/tv_certificates"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="@dimen/keyline_small"
       android:lineSpacingExtra="8dp"
       android:textSize="16sp"
-      app:layout_constraintTop_toBottomOf="@+id/tv_awards_desc"
+      app:layout_constraintTop_toBottomOf="@+id/tv_certificates_desc"
       tools:text="OOO"/>
 
     <android.support.design.button.MaterialButton
