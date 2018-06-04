@@ -64,7 +64,7 @@ public class TypeSelectActivity extends AppCompatActivity implements OnClickList
           showToast(R.string.msg_login_no_connection);
           return;
         }
-        showToast(R.string.msg_login_unknown_error);
+        showToast(R.string.msg_unknown_error);
         Log.e(TAG, "Sign-in error: ", response.getError());
       }
     }

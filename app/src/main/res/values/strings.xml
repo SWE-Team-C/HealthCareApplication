@@ -37,7 +37,7 @@
   <!-- Message -->
   <string name="msg_login_cancelled">Login Cancelled</string>
   <string name="msg_login_no_connection">No internet connection</string>
-  <string name="msg_login_unknown_error">Unknown error occurred</string>
+  <string name="msg_unknown_error">Unknown error occurred</string>
   <string name="msg_timetable_added">Added time table</string>
   <string name="msg_timetable_not_selected">Select least one</string>
   <string name="msg_profile_saved">Saved profile</string>

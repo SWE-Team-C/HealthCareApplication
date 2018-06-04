@@ -17,7 +17,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -87,7 +89,6 @@ public class SelectTimeActivity extends AppCompatActivity {
     switch (item.getItemId()) {
       case R.id.action_complete:
         writeRelation(mTrainerId);
-        navigateMain();
         return true;
       default:
         return super.onOptionsItemSelected(item);
@@ -203,7 +204,11 @@ public class SelectTimeActivity extends AppCompatActivity {
       ChatRoom chatRoom = new ChatRoom(userUid, trainerId, null);
       DatabaseReference reference = mFirebaseDatabaseReference
           .child(DatabaseConstants.CHILD_CHAT_ROOM);
-      reference.push().setValue(chatRoom);
+      Task<Void> task = reference.push().setValue(chatRoom);
+      task.addOnCompleteListener(task1 -> navigateMain());
+      task.addOnFailureListener(
+          e -> Toast.makeText(this, getString(R.string.msg_unknown_error), Toast.LENGTH_SHORT)
+              .show());
     }
   }
 
