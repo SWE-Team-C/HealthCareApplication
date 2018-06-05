@@ -16,13 +16,13 @@ import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.TimeTable;
 import edu.swe.healthcareapplication.util.Utils;
 import edu.swe.healthcareapplication.view.adapter.SelectTimeAdapter.ViewHolder;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHolder> {
 
   private Context mContext;
-  private List<String> mSelectedKeyList;
+  private Map<String, Boolean> mItemModifiedMap;
 
   /**
    * Initialize a {@link Adapter} that listens to a Firebase query. See {@link
@@ -33,7 +33,7 @@ public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHo
       @NonNull FirebaseRecyclerOptions<TimeTable> options) {
     super(options);
     this.mContext = context;
-    this.mSelectedKeyList = new ArrayList<>();
+    this.mItemModifiedMap = new HashMap<>();
   }
 
   @NonNull
@@ -55,26 +55,30 @@ public class SelectTimeAdapter extends FirebaseRecyclerAdapter<TimeTable, ViewHo
     } else if (model.selectedUserId.equals(getUserUid())) {
       holder.timeCheckBox.setChecked(true);
       holder.timeCheckBox.setEnabled(true);
-      mSelectedKeyList.add(key);
+      mItemModifiedMap.put(key, true);
     } else {
       holder.timeCheckBox.setChecked(false);
       holder.timeCheckBox.setEnabled(false);
     }
     holder.timeCheckBox.setOnClickListener(v -> {
       if (holder.timeCheckBox.isChecked()) {
-        mSelectedKeyList.add(key);
+        mItemModifiedMap.put(key, true);
       } else {
-        mSelectedKeyList.remove(mSelectedKeyList.indexOf(key));
+        mItemModifiedMap.put(key, false);
       }
     });
   }
 
-  public String getUserUid() {
+  private String getUserUid() {
     return FirebaseAuth.getInstance().getCurrentUser().getUid();
   }
 
-  public List<String> getSelectedKeyList() {
-    return mSelectedKeyList;
+  public Map<String, Boolean> getItemModifiedMap() {
+    return mItemModifiedMap;
+  }
+
+  public void setItemUpdated() {
+    mItemModifiedMap.clear();
   }
 
   protected class ViewHolder extends RecyclerView.ViewHolder {

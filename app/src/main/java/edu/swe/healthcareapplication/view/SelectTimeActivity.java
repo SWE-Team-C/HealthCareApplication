@@ -36,7 +36,7 @@ import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import edu.swe.healthcareapplication.view.adapter.SelectTimeAdapter;
 import edu.swe.healthcareapplication.view.widget.RecyclerViewWithEmptyView;
-import java.util.List;
+import java.util.Map;
 
 public class SelectTimeActivity extends AppCompatActivity {
 
@@ -44,7 +44,6 @@ public class SelectTimeActivity extends AppCompatActivity {
 
   private DatabaseReference mFirebaseDatabaseReference;
   private FirebaseAuth mFirebaseAuth;
-  private String mTrainerId;
 
   private Toolbar mToolbar;
   private TabLayout mTabLayout;
@@ -52,7 +51,9 @@ public class SelectTimeActivity extends AppCompatActivity {
   private FloatingActionButton mFab;
   private CoordinatorLayout mCoordinatorLayout;
 
+  private String mTrainerId;
   private int mUpdatedItemCount = 0;
+  private boolean mIsFromMain = false;
 
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,11 +70,12 @@ public class SelectTimeActivity extends AppCompatActivity {
     Bundle bundle = getIntent().getExtras();
     if (bundle != null) {
       mTrainerId = bundle.getString(BundleConstants.BUNDLE_TRAINER_ID);
-    } else {
-      Log.e(TAG, "onStart: Unknown trainer id");
+      mIsFromMain = bundle.getBoolean(BundleConstants.BUNDLE_FROM_MAIN);
     }
     if (mTrainerId != null) {
       readTrainerTimeTable(mTrainerId, 0);
+    } else {
+      readTrainerId();
     }
   }
 
@@ -88,7 +90,11 @@ public class SelectTimeActivity extends AppCompatActivity {
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
       case R.id.action_complete:
-        writeRelation(mTrainerId);
+        if (!mIsFromMain) {
+          writeChatRoom(mTrainerId);
+        } else {
+          finish();
+        }
         return true;
       default:
         return super.onOptionsItemSelected(item);
@@ -134,9 +140,40 @@ public class SelectTimeActivity extends AppCompatActivity {
 
     mFab.setOnClickListener(v -> {
       int position = mTabLayout.getSelectedTabPosition();
-      writeSelectedTimeTable(mTrainerId,
-          ((SelectTimeAdapter) mTimetableList.getAdapter()).getSelectedKeyList(), position);
+      writeTimeTable(mTrainerId,
+          ((SelectTimeAdapter) mTimetableList.getAdapter()).getItemModifiedMap(), position);
     });
+  }
+
+  private void readTrainerId() {
+    FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+    if (currentUser != null) {
+      String uid = currentUser.getUid();
+
+      Query query = FirebaseDatabase.getInstance().getReference()
+          .child(DatabaseConstants.CHILD_CHAT_ROOM)
+          .orderByChild("userId")
+          .equalTo(uid);
+
+      query.addListenerForSingleValueEvent(new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+          Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+          for (DataSnapshot child : children) {
+            ChatRoom chatRoom = child.getValue(ChatRoom.class);
+            if (chatRoom != null) {
+              mTrainerId = chatRoom.trainerId;
+              readTrainerTimeTable(mTrainerId, 0);
+            }
+          }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+          Log.e(TAG, databaseError.toString());
+        }
+      });
+    }
   }
 
   private void readTrainerTimeTable(@NonNull String trainerId, int dateIndex) {
@@ -155,10 +192,10 @@ public class SelectTimeActivity extends AppCompatActivity {
     mTimetableList.setAdapter(adapter);
   }
 
-  private void writeSelectedTimeTable(@NonNull String trainerId,
-      @NonNull List<String> selectedKey,
+  private void writeTimeTable(@NonNull String trainerId,
+      @NonNull Map<String, Boolean> modifiedMap,
       int dateIndex) {
-    if (selectedKey.size() == 0) {
+    if (modifiedMap.size() == 0) {
       Snackbar.make(mCoordinatorLayout, R.string.msg_timetable_not_selected,
           Snackbar.LENGTH_SHORT).show();
       return;
@@ -171,21 +208,27 @@ public class SelectTimeActivity extends AppCompatActivity {
 
     mUpdatedItemCount = 0;
 
-    for (String key : selectedKey) {
+    for (String key : modifiedMap.keySet()) {
       reference.child(key).addListenerForSingleValueEvent(new ValueEventListener() {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
           TimeTable timeTable = dataSnapshot.getValue(TimeTable.class);
           FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
           if (timeTable != null && currentUser != null) {
-            timeTable.selectedUserId = currentUser.getUid();
+            if (modifiedMap.get(key)) {
+              timeTable.selectedUserId = currentUser.getUid();
+            } else {
+              timeTable.selectedUserId = null;
+            }
           }
           reference.child(key).setValue(timeTable);
           mUpdatedItemCount++;
-          if (mUpdatedItemCount == selectedKey.size()) {
+          if (mUpdatedItemCount == modifiedMap.size()) {
             Snackbar
-                .make(mCoordinatorLayout, R.string.msg_timetable_added, Snackbar.LENGTH_SHORT)
+                .make(mCoordinatorLayout, R.string.msg_timetable_updated, Snackbar.LENGTH_SHORT)
                 .show();
+
+            ((SelectTimeAdapter) mTimetableList.getAdapter()).setItemUpdated();
           }
         }
 
@@ -197,7 +240,7 @@ public class SelectTimeActivity extends AppCompatActivity {
     }
   }
 
-  private void writeRelation(@NonNull String trainerId) {
+  private void writeChatRoom(@NonNull String trainerId) {
     FirebaseUser currentUser = mFirebaseAuth.getCurrentUser();
     if (currentUser != null) {
       String userUid = currentUser.getUid();
