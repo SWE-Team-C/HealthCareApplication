@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 public class BaseApplication extends Application implements ActivityLifecycleCallbacks {
 
-  private boolean isBackground = false;
+  private int mRunningActivityCount = 0;
 
   @Override
   public void onCreate() {
@@ -22,7 +22,7 @@ public class BaseApplication extends Application implements ActivityLifecycleCal
 
   @Override
   public void onActivityStarted(Activity activity) {
-    isBackground = false;
+    mRunningActivityCount++;
   }
 
   @Override
@@ -37,7 +37,7 @@ public class BaseApplication extends Application implements ActivityLifecycleCal
 
   @Override
   public void onActivityStopped(Activity activity) {
-    isBackground = true;
+    mRunningActivityCount--;
   }
 
   @Override
@@ -51,6 +51,6 @@ public class BaseApplication extends Application implements ActivityLifecycleCal
   }
 
   public boolean isBackground() {
-    return isBackground;
+    return mRunningActivityCount == 0;
   }
 }
