@@ -56,6 +56,6 @@
   <string name="empty_user_extra">No input information by trainer</string>
   <string name="hour_format_am">%d:00 AM</string>
   <string name="hour_format_pm">%d:00 PM</string>
-  <string name="timestamp_format">YYYY. MM. dd.</string>
+  <string name="timestamp_format">yyyy. MM. dd.</string>
   <string name="last_modified_format">Last modified : %s</string>
 </resources>
