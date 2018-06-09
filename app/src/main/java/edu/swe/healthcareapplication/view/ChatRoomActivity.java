@@ -8,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.AdapterDataObserver;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,15 +16,10 @@ import android.widget.TextView;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import edu.swe.healthcareapplication.R;
 import edu.swe.healthcareapplication.model.Chat;
-import edu.swe.healthcareapplication.model.ChatRoom;
 import edu.swe.healthcareapplication.util.BundleConstants;
 import edu.swe.healthcareapplication.util.DatabaseConstants;
 import java.text.SimpleDateFormat;
@@ -103,30 +97,6 @@ public class ChatRoomActivity extends AppCompatActivity {
         .child(chatRoomKey)
         .push()
         .setValue(chat);
-
-    updateChatRoom(chatRoomKey, chat);
-  }
-
-  private void updateChatRoom(String chatRoomKey, Chat chat) {
-    DatabaseReference reference = FirebaseDatabase.getInstance().getReference()
-        .child(DatabaseConstants.CHILD_CHAT_ROOM)
-        .child(chatRoomKey);
-
-    reference.addListenerForSingleValueEvent(new ValueEventListener() {
-      @Override
-      public void onDataChange(DataSnapshot dataSnapshot) {
-        ChatRoom chatRoom = dataSnapshot.getValue(ChatRoom.class);
-        if (chatRoom != null) {
-          chatRoom.latestMessage = chat.message;
-          dataSnapshot.getRef().setValue(chatRoom);
-        }
-      }
-
-      @Override
-      public void onCancelled(DatabaseError databaseError) {
-        Log.e(TAG, "onCancelled: " + databaseError.toString());
-      }
-    });
   }
 
   private void readChats(String chatRoomKey) {
